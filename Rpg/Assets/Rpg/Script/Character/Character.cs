@@ -51,6 +51,12 @@ namespace Rpg.Character
         {
             get; set;
         }
+
+        public Transform GetTransform
+        {
+            get { return transform; }
+        }
+
         [HideInInspector]
         public OnActiveRagdoll onActiveRagdoll = new OnActiveRagdoll();
         [HideInInspector]

@@ -39,9 +39,9 @@
 //    protected float timeToStart;
 //    protected int equipCalls;
 //    protected bool changeLeft, changeRight;
-//    #if !UNITY_5_4_OR_NEWER
+//#if !UNITY_5_4_OR_NEWER
 //    protected System.Random random;
-//    #endif
+//#endif
 //    #endregion
 
 //    IEnumerator Start()
