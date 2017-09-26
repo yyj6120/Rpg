@@ -131,7 +131,6 @@ public class v_AIController : v_AIAnimator, IMeleeFighter
     protected virtual void UpdateDestination(Vector3 position)
     {
         #region destination routine
-
         if (agent.isOnNavMesh)
         {
             agent.SetDestination(position);
@@ -175,12 +174,10 @@ public class v_AIController : v_AIAnimator, IMeleeFighter
         while (this.enabled)
         {
             CheckIsOnNavMesh();
-            CheckAutoCrouch();
+          //  CheckAutoCrouch();
             yield return new WaitForSeconds(stateRoutineIteration);
             if (!lockMovement)
             {
-
-
                 switch (currentState)
                 {
                     case AIStates.Idle:
@@ -188,17 +185,20 @@ public class v_AIController : v_AIAnimator, IMeleeFighter
                         yield return StartCoroutine(Idle());
                         break;
                     case AIStates.Chase:
-                        if (currentState != oldState) { onChase.Invoke(); oldState = currentState; }
+                        if (currentState != oldState)
+                        {
+                            onChase.Invoke(); oldState = currentState;
+                        }
                         yield return StartCoroutine(Chase());
                         break;
-                    //case AIStates.PatrolSubPoints:
-                    //    if (currentState != oldState) { onPatrol.Invoke(); oldState = currentState; }
-                    //    yield return StartCoroutine(PatrolSubPoints());
-                    //    break;
-                    //case AIStates.PatrolWaypoints:
-                    //    if (currentState != oldState) { onPatrol.Invoke(); oldState = currentState; }
-                    //    yield return StartCoroutine(PatrolWaypoints());
-                    //    break;
+                    case AIStates.PatrolSubPoints:
+                        if (currentState != oldState) { onPatrol.Invoke(); oldState = currentState; }
+                      //  yield return StartCoroutine(PatrolSubPoints());
+                        break;
+                    case AIStates.PatrolWaypoints:
+                        if (currentState != oldState) { onPatrol.Invoke(); oldState = currentState; }
+                      //  yield return StartCoroutine(PatrolWaypoints());
+                        break;
                 }
 
             }
@@ -211,13 +211,12 @@ public class v_AIController : v_AIAnimator, IMeleeFighter
         while (currentHealth <= 0) yield return null;
         if (canSeeTarget)
             currentState = AIStates.Chase;
-        //if (agent.enabled && Vector3.Distance(transform.position, startPosition) > agent.stoppingDistance && !((pathArea && pathArea.waypoints.Count > 0)))
-        //    currentState = AIStates.PatrolWaypoints;
+        if (agent.enabled && Vector3.Distance(transform.position, startPosition) > agent.stoppingDistance && !((pathArea && pathArea.waypoints.Count > 0)))
+            currentState = AIStates.PatrolWaypoints;
         //else if ((pathArea && pathArea.waypoints.Count > 0))
         //    currentState = AIStates.PatrolWaypoints;
         else
             agent.speed = Mathf.Lerp(agent.speed, 0f, smoothSpeed * Time.deltaTime);
-
     }
 
     protected IEnumerator Chase()
