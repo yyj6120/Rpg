@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -3954,7 +3954,7 @@ MonoBehaviour:
     m_Bits: 1
   headDetect: 0.95
   patrolSpeed: 0.5
-  chaseSpeed: 1.5
+  chaseSpeed: 1
   strafeSpeed: 1
   sphereSensor: {fileID: 1510028558}
   tagsToDetect:
@@ -3966,7 +3966,7 @@ MonoBehaviour:
   maxDetectDistance: 25
   minDetectDistance: 2
   distanceToLostTarget: 20
-  chaseStopDistance: 1
+  chaseStopDistance: 3.5
   strafeSideways: 1
   strafeBackward: 1
   strafeDistance: 3
@@ -3988,6 +3988,7 @@ MonoBehaviour:
   lowerShield: 2
   distanceToChangeWaypoint: 1
   patrollingStopDistance: 0.5
+  pathArea: {fileID: 0}
   randomWaypoints: 0
   _capsuleCollider: {fileID: 0}
   meleeManager: {fileID: 0}

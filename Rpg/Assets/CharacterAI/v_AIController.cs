@@ -181,23 +181,36 @@ public class v_AIController : v_AIAnimator, IMeleeFighter
                 switch (currentState)
                 {
                     case AIStates.Idle:
-                        if (currentState != oldState) { onIdle.Invoke(); oldState = currentState; }
+                        if (currentState != oldState)
+                        {
+                            onIdle.Invoke();
+                            oldState = currentState;
+                        }
                         yield return StartCoroutine(Idle());
                         break;
                     case AIStates.Chase:
                         if (currentState != oldState)
                         {
-                            onChase.Invoke(); oldState = currentState;
+                            onChase.Invoke();
+                            oldState = currentState;
                         }
                         yield return StartCoroutine(Chase());
                         break;
                     case AIStates.PatrolSubPoints:
-                        if (currentState != oldState) { onPatrol.Invoke(); oldState = currentState; }
-                      //  yield return StartCoroutine(PatrolSubPoints());
+                        if (currentState != oldState)
+                        {
+                            onPatrol.Invoke();
+                            oldState = currentState;
+                        }
+                        yield return StartCoroutine(PatrolSubPoints());
                         break;
                     case AIStates.PatrolWaypoints:
-                        if (currentState != oldState) { onPatrol.Invoke(); oldState = currentState; }
-                      //  yield return StartCoroutine(PatrolWaypoints());
+                        if (currentState != oldState)
+                        {
+                            onPatrol.Invoke();
+                            oldState = currentState;
+                        }
+                        yield return StartCoroutine(PatrolWaypoints());
                         break;
                 }
 
@@ -213,8 +226,8 @@ public class v_AIController : v_AIAnimator, IMeleeFighter
             currentState = AIStates.Chase;
         if (agent.enabled && Vector3.Distance(transform.position, startPosition) > agent.stoppingDistance && !((pathArea && pathArea.waypoints.Count > 0)))
             currentState = AIStates.PatrolWaypoints;
-        //else if ((pathArea && pathArea.waypoints.Count > 0))
-        //    currentState = AIStates.PatrolWaypoints;
+        else if ((pathArea && pathArea.waypoints.Count > 0))
+            currentState = AIStates.PatrolWaypoints;
         else
             agent.speed = Mathf.Lerp(agent.speed, 0f, smoothSpeed * Time.deltaTime);
     }
@@ -225,7 +238,8 @@ public class v_AIController : v_AIAnimator, IMeleeFighter
         agent.speed = Mathf.Lerp(agent.speed, chaseSpeed, smoothSpeed * Time.deltaTime);
         agent.stoppingDistance = chaseStopDistance;
 
-        if (!isBlocking && !tryingBlock) StartCoroutine(CheckChanceToBlock(chanceToBlockInStrafe, lowerShield));
+        if (!isBlocking && !tryingBlock)
+            StartCoroutine(CheckChanceToBlock(chanceToBlockInStrafe, lowerShield));
 
         if (target == null || !agressiveAtFirstSight)
             currentState = AIStates.Idle;
@@ -280,160 +294,159 @@ public class v_AIController : v_AIAnimator, IMeleeFighter
         }
     }
 
-    //protected IEnumerator PatrolSubPoints()
-    //{
-    //    while (!agent.enabled) yield return null;
+    protected IEnumerator PatrolSubPoints()
+    {
+        while (!agent.enabled) yield return null;
 
-    //    if (targetWaypoint)
-    //    {
-    //        if (targetPatrolPoint == null || !targetPatrolPoint.isValid)
-    //        {
-    //            targetPatrolPoint = GetPatrolPoint(targetWaypoint);
-    //        }
-    //        else
-    //        {
-    //            agent.speed = Mathf.Lerp(agent.speed, (agent.hasPath && targetPatrolPoint.isValid) ? patrolSpeed : 0, smoothSpeed * Time.deltaTime);
-    //            agent.stoppingDistance = patrollingStopDistance;
-    //            destination = targetPatrolPoint.isValid ? targetPatrolPoint.position : transform.position;
-    //            if (Vector3.Distance(transform.position, destination) < targetPatrolPoint.areaRadius && targetPatrolPoint.CanEnter(transform) && !targetPatrolPoint.IsOnWay(transform))
-    //            {
-    //                targetPatrolPoint.Enter(transform);
-    //                wait = targetPatrolPoint.timeToStay;
-    //                visitedPatrolPoint.Add(targetPatrolPoint);
-    //            }
-    //            else if (Vector3.Distance(transform.position, destination) < targetPatrolPoint.areaRadius && (!targetPatrolPoint.CanEnter(transform) || !targetPatrolPoint.isValid)) targetPatrolPoint = GetPatrolPoint(targetWaypoint);
+        if (targetWaypoint)
+        {
+            if (targetPatrolPoint == null || !targetPatrolPoint.isValid)
+            {
+                targetPatrolPoint = GetPatrolPoint(targetWaypoint);
+            }
+            else
+            {
+                agent.speed = Mathf.Lerp(agent.speed, (agent.hasPath && targetPatrolPoint.isValid) ? patrolSpeed : 0, smoothSpeed * Time.deltaTime);
+                agent.stoppingDistance = patrollingStopDistance;
+                destination = targetPatrolPoint.isValid ? targetPatrolPoint.position : transform.position;
+                if (Vector3.Distance(transform.position, destination) < targetPatrolPoint.areaRadius && targetPatrolPoint.CanEnter(transform) && !targetPatrolPoint.IsOnWay(transform))
+                {
+                    targetPatrolPoint.Enter(transform);
+                    wait = targetPatrolPoint.timeToStay;
+                    visitedPatrolPoint.Add(targetPatrolPoint);
+                }
+                else if (Vector3.Distance(transform.position, destination) < targetPatrolPoint.areaRadius && (!targetPatrolPoint.CanEnter(transform) || !targetPatrolPoint.isValid)) targetPatrolPoint = GetPatrolPoint(targetWaypoint);
 
-    //            if (targetPatrolPoint != null && (targetPatrolPoint.IsOnWay(transform) && Vector3.Distance(transform.position, destination) < distanceToChangeWaypoint))
-    //            {
-    //                if (wait <= 0 || !targetPatrolPoint.isValid)
-    //                {
-    //                    wait = 0;
-    //                    if (visitedPatrolPoint.Count == pathArea.GetValidSubPoints(targetWaypoint).Count)
-    //                    {
-    //                        currentState = AIStates.PatrolWaypoints;
-    //                        targetWaypoint.Exit(transform);
-    //                        targetPatrolPoint.Exit(transform);
-    //                        targetWaypoint = null;
-    //                        targetPatrolPoint = null;
-    //                        visitedPatrolPoint.Clear();
-    //                    }
-    //                    else
-    //                    {
-    //                        targetPatrolPoint.Exit(transform);
-    //                        targetPatrolPoint = GetPatrolPoint(targetWaypoint);
-    //                    }
-    //                }
-    //                else if (wait > 0)
-    //                {
-    //                    if (agent.desiredVelocity.magnitude == 0)
-    //                        wait -= Time.deltaTime;
-    //                }
-    //            }
-    //        }
-    //    }
-    //    if (canSeeTarget)
-    //        currentState = AIStates.Chase;
-    //}
+                if (targetPatrolPoint != null && (targetPatrolPoint.IsOnWay(transform) && Vector3.Distance(transform.position, destination) < distanceToChangeWaypoint))
+                {
+                    if (wait <= 0 || !targetPatrolPoint.isValid)
+                    {
+                        wait = 0;
+                        if (visitedPatrolPoint.Count == pathArea.GetValidSubPoints(targetWaypoint).Count)
+                        {
+                            currentState = AIStates.PatrolWaypoints;
+                            targetWaypoint.Exit(transform);
+                            targetPatrolPoint.Exit(transform);
+                            targetWaypoint = null;
+                            targetPatrolPoint = null;
+                            visitedPatrolPoint.Clear();
+                        }
+                        else
+                        {
+                            targetPatrolPoint.Exit(transform);
+                            targetPatrolPoint = GetPatrolPoint(targetWaypoint);
+                        }
+                    }
+                    else if (wait > 0)
+                    {
+                        if (agent.desiredVelocity.magnitude == 0)
+                            wait -= Time.deltaTime;
+                    }
+                }
+            }
+        }
+        if (canSeeTarget)
+            currentState = AIStates.Chase;
+    }
 
-    //protected IEnumerator PatrolWaypoints()
-    //{
-    //    while (!agent.enabled) yield return null;
+    protected IEnumerator PatrolWaypoints()
+    {
+        while (!agent.enabled) yield return null;
 
-    //    if (pathArea != null && pathArea.waypoints.Count > 0)
-    //    {
-    //        if (targetWaypoint == null || !targetWaypoint.isValid)
-    //        {
-    //            targetWaypoint = GetWaypoint();
-    //        }
-    //        else
-    //        {
-    //            agent.speed = Mathf.Lerp(agent.speed, (agent.hasPath && targetWaypoint.isValid) ? patrolSpeed : 0, smoothSpeed * Time.deltaTime);
+        if (pathArea != null && pathArea.waypoints.Count > 0)
+        {
+            if (targetWaypoint == null || !targetWaypoint.isValid)
+            {
+                targetWaypoint = GetWaypoint();
+            }
+            else
+            {
+                agent.speed = Mathf.Lerp(agent.speed, (agent.hasPath && targetWaypoint.isValid) ? patrolSpeed : 0, smoothSpeed * Time.deltaTime);
 
-    //            agent.stoppingDistance = patrollingStopDistance;
+                agent.stoppingDistance = patrollingStopDistance;
 
-    //            destination = targetWaypoint.position;
-    //            if (Vector3.Distance(transform.position, destination) < targetWaypoint.areaRadius && targetWaypoint.CanEnter(transform) && !targetWaypoint.IsOnWay(transform))
-    //            {
-    //                targetWaypoint.Enter(transform);
-    //                wait = targetWaypoint.timeToStay;
-    //            }
-    //            else if (Vector3.Distance(transform.position, destination) < targetWaypoint.areaRadius && (!targetWaypoint.CanEnter(transform) || !targetWaypoint.isValid))
-    //                targetWaypoint = GetWaypoint();
+                destination = targetWaypoint.position;
+                if (Vector3.Distance(transform.position, destination) < targetWaypoint.areaRadius && targetWaypoint.CanEnter(transform) && !targetWaypoint.IsOnWay(transform))
+                {
+                    targetWaypoint.Enter(transform);
+                    wait = targetWaypoint.timeToStay;
+                }
+                else if (Vector3.Distance(transform.position, destination) < targetWaypoint.areaRadius && (!targetWaypoint.CanEnter(transform) || !targetWaypoint.isValid))
+                    targetWaypoint = GetWaypoint();
 
-    //            if (targetWaypoint != null && targetWaypoint.IsOnWay(transform) && Vector3.Distance(transform.position, destination) < distanceToChangeWaypoint)
-    //            {
-    //                if (wait <= 0 || !targetWaypoint.isValid)
-    //                {
-    //                    wait = 0;
-    //                    if (targetWaypoint.subPoints.Count > 0)
-    //                        currentState = AIStates.PatrolSubPoints;
-    //                    else
-    //                    {
-    //                        targetWaypoint.Exit(transform);
-    //                        visitedPatrolPoint.Clear();
-    //                        targetWaypoint = GetWaypoint();
-    //                    }
-    //                }
-    //                else if (wait > 0)
-    //                {
-    //                    if (agent.desiredVelocity.magnitude == 0)
-    //                        wait -= Time.deltaTime;
-    //                }
-    //            }
-    //        }
-    //    }
-    //    else if (Vector3.Distance(transform.position, startPosition) > patrollingStopDistance)
-    //    {
-    //        agent.speed = Mathf.Lerp(agent.speed, patrolSpeed, smoothSpeed * Time.deltaTime);
-    //        agent.stoppingDistance = patrollingStopDistance;
-    //        destination = startPosition;
-    //    }
-    //    if (canSeeTarget)
-    //        currentState = AIStates.Chase;
-    //}
+                if (targetWaypoint != null && targetWaypoint.IsOnWay(transform) && Vector3.Distance(transform.position, destination) < distanceToChangeWaypoint)
+                {
+                    if (wait <= 0 || !targetWaypoint.isValid)
+                    {
+                        wait = 0;
+                        if (targetWaypoint.subPoints.Count > 0)
+                            currentState = AIStates.PatrolSubPoints;
+                        else
+                        {
+                            targetWaypoint.Exit(transform);
+                            visitedPatrolPoint.Clear();
+                            targetWaypoint = GetWaypoint();
+                        }
+                    }
+                    else if (wait > 0)
+                    {
+                        if (agent.desiredVelocity.magnitude == 0)
+                            wait -= Time.deltaTime;
+                    }
+                }
+            }
+        }
+        else if (Vector3.Distance(transform.position, startPosition) > patrollingStopDistance)
+        {
+            agent.speed = Mathf.Lerp(agent.speed, patrolSpeed, smoothSpeed * Time.deltaTime);
+            agent.stoppingDistance = patrollingStopDistance;
+            destination = startPosition;
+        }
+        if (canSeeTarget)
+            currentState = AIStates.Chase;
+    }
 
     #endregion
 
     #region AI Waypoint & PatrolPoint
 
-    //vWaypoint GetWaypoint()
-    //{
-    //    var waypoints = pathArea.GetValidPoints();
+    Waypoint GetWaypoint()
+    {
+        var waypoints = pathArea.GetValidPoints();
 
-    //    if (randomWaypoints) currentWaypoint = randomWaypoint.Next(waypoints.Count);
-    //    else currentWaypoint++;
+        if (randomWaypoints) currentWaypoint = randomWaypoint.Next(waypoints.Count);
+        else currentWaypoint++;
 
-    //    if (currentWaypoint >= waypoints.Count) currentWaypoint = 0;
-    //    if (waypoints.Count == 0)
-    //    {
-    //        agent.Stop();
-    //        return null;
-    //    }
-    //    if (visitedWaypoint.Count == waypoints.Count) visitedWaypoint.Clear();
+        if (currentWaypoint >= waypoints.Count) currentWaypoint = 0;
+        if (waypoints.Count == 0)
+        {
+            agent.Stop();
+            return null;
+        }
+        if (visitedWaypoint.Count == waypoints.Count) visitedWaypoint.Clear();
 
-    //    if (visitedWaypoint.Contains(waypoints[currentWaypoint])) return null;
+        if (visitedWaypoint.Contains(waypoints[currentWaypoint])) return null;
 
-    //    agent.Resume();
-    //    return waypoints[currentWaypoint];
-    //}
+        agent.Resume();
+        return waypoints[currentWaypoint];
+    }
 
-    //vPoint GetPatrolPoint(vWaypoint waypoint)
-    //{
-    //    var subPoints = pathArea.GetValidSubPoints(waypoint);
-    //    if (waypoint.randomPatrolPoint) currentPatrolPoint = randomPatrolPoint.Next(subPoints.Count);
-    //    else currentPatrolPoint++;
+    Point GetPatrolPoint(Waypoint waypoint)
+    {
+        var subPoints = pathArea.GetValidSubPoints(waypoint);
+        if (waypoint.randomPatrolPoint) currentPatrolPoint = randomPatrolPoint.Next(subPoints.Count);
+        else currentPatrolPoint++;
 
-    //    if (currentPatrolPoint >= subPoints.Count) currentPatrolPoint = 0;
-    //    if (subPoints.Count == 0)
-    //    {
-    //        agent.Stop();
-    //        return null;
-    //    }
-    //    if (visitedPatrolPoint.Contains(subPoints[currentPatrolPoint])) return null;
-    //    agent.Resume();
-    //    return subPoints[currentPatrolPoint];
-    //}
-
+        if (currentPatrolPoint >= subPoints.Count) currentPatrolPoint = 0;
+        if (subPoints.Count == 0)
+        {
+            agent.Stop();
+            return null;
+        }
+        if (visitedPatrolPoint.Contains(subPoints[currentPatrolPoint])) return null;
+        agent.Resume();
+        return subPoints[currentPatrolPoint];
+    }
     #endregion
 
     #region AI Melee Combat        

@@ -52,7 +52,7 @@ public class v_AIMotor : Character
     [Tooltip("Distance to lost the Target")]
     public float distanceToLostTarget = 20f;
     [Tooltip("Distance to stop when chasing the Player")]
-    public float chaseStopDistance = 1f;
+    public float chaseStopDistance = 3.5f;
 
     [Header("--- Strafe ---")]
     [Tooltip("Strafe around the target")]
@@ -166,10 +166,10 @@ public class v_AIMotor : Character
     protected PhysicMaterial frictionPhysics;
     protected Transform head;
     protected Collider colliderTarget;
-    //    protected vWaypoint targetWaypoint;
-    //    protected vPoint targetPatrolPoint;
-    //    protected System.Collections.Generic.List<vPoint> visitedPatrolPoint = new System.Collections.Generic.List<vPoint>();
-    //    protected System.Collections.Generic.List<vWaypoint> visitedWaypoint = new System.Collections.Generic.List<vWaypoint>();
+    protected Waypoint targetWaypoint;
+    protected Point targetPatrolPoint;
+    protected System.Collections.Generic.List<Point> visitedPatrolPoint = new System.Collections.Generic.List<Point>();
+    protected System.Collections.Generic.List<Waypoint> visitedWaypoint = new System.Collections.Generic.List<Waypoint>();
 
     #endregion
 

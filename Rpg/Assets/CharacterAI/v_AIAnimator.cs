@@ -46,10 +46,10 @@ using UnityEngine.AI;
         void LayerControl()
         {
             baseLayerInfo = animator.GetCurrentAnimatorStateInfo(baseLayer);
-            underBodyInfo = animator.GetCurrentAnimatorStateInfo(underBodyLayer);
-            rightArmInfo = animator.GetCurrentAnimatorStateInfo(rightArmLayer);
-            leftArmInfo = animator.GetCurrentAnimatorStateInfo(leftArmLayer);
-            upperBodyInfo = animator.GetCurrentAnimatorStateInfo(upperBodyLayer);
+          //  underBodyInfo = animator.GetCurrentAnimatorStateInfo(underBodyLayer);
+         //   rightArmInfo = animator.GetCurrentAnimatorStateInfo(rightArmLayer);
+         //   leftArmInfo = animator.GetCurrentAnimatorStateInfo(leftArmLayer);
+          //  upperBodyInfo = animator.GetCurrentAnimatorStateInfo(upperBodyLayer);
             fullBodyInfo = animator.GetCurrentAnimatorStateInfo(fullbodyLayer);
         }
 
