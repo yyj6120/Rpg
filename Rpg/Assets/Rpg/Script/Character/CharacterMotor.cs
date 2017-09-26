@@ -172,6 +172,8 @@ namespace Rpg.Character
             slippyPhysics.dynamicFriction = 0f;
             slippyPhysics.frictionCombine = PhysicMaterialCombine.Minimum;
 
+            currentHealth = maxHealth;
+
         }
         public virtual void UpdateMotor()
         {

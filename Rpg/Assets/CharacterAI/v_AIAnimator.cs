@@ -33,14 +33,13 @@ using UnityEngine.AI;
             LayerControl();
             LocomotionAnimation(_speed, _direction);           
 
-            RollAnimation();
-            CrouchAnimation();
+         //   RollAnimation();
+         //   CrouchAnimation();
 
             ResetAndLockAgent();
             MoveSetIDControl();
             MeleeATK_Animation();
-            DEF_Animation();
-
+           // DEF_Animation();
             DeadAnimation();
         }
 
@@ -141,7 +140,8 @@ using UnityEngine.AI;
             isGrounded = agent.enabled ? agent.isOnNavMesh : isRolling ? true : groundDistance <= groundCheckDistance;
             animator.SetBool("IsGrounded", isGrounded);
             _speed = Mathf.Clamp(_speed, -maxSpeed, maxSpeed);
-            if (OnStrafeArea) _direction = Mathf.Clamp(_direction, -strafeSpeed, strafeSpeed);
+            if (OnStrafeArea)
+                _direction = Mathf.Clamp(_direction, -strafeSpeed, strafeSpeed);
 
             var newInput = new Vector2(_speed, _direction);
             strafeInput = Mathf.Clamp(newInput.magnitude, 0, 1.5f);
@@ -261,8 +261,10 @@ using UnityEngine.AI;
         /// </summary>
         void MeleeATK_Animation()
         {
-            if (meleeManager == null) return;
-            if (actions) attackCount = 0;
+            if (meleeManager == null)
+                return;
+            if (actions)
+                attackCount = 0;
             animator.SetInteger("AttackID", meleeManager.GetAttackID());
         }
 

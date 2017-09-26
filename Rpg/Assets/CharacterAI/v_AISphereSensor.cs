@@ -67,9 +67,12 @@ public class v_AISphereSensor : MonoBehaviour
             SortCharacters();
             if (targetsInArea.Count > 0)
             {
-	            var vChar = targetsInArea[0].GetComponent<Character>();
+                var vChar = targetsInArea[0].GetComponent<Character>();
                 if (vChar != null && vChar.currentHealth > 0)
+                {
+                    Debug.Log("dasdasdasdads");
                     return vChar;
+                }
             }
         }
 
@@ -86,13 +89,11 @@ public class v_AISphereSensor : MonoBehaviour
                 targetsInArea.RemoveAt(i);  
             }
         } 
-           
 
         if (getFromDistance)
             targetsInArea.Sort(delegate (Transform c1, Transform c2)
             {
-                return Vector3.Distance(this.transform.position, c1 != null ? c1.transform.position : Vector3.one * Mathf.Infinity).CompareTo
-                    ((Vector3.Distance(this.transform.position, c2 != null ? c2.transform.position : Vector3.one * Mathf.Infinity)));
+                return Vector3.Distance(this.transform.position, c1 != null ? c1.transform.position : Vector3.one * Mathf.Infinity).CompareTo((Vector3.Distance(this.transform.position, c2 != null ? c2.transform.position : Vector3.one * Mathf.Infinity)));
             });
     }
 
