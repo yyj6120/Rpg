@@ -32,7 +32,7 @@ public class v_AIMotor : Character
     public float patrolSpeed = 0.5f;
     [Tooltip("Use to limit your locomotion animation, if you want to chase the target walking set this value to 0.5f")]
     [Range(0f, 1.5f)]
-    public float chaseSpeed = 1f;
+    public float chaseSpeed = 0.75f;
     [Tooltip("Use to limit your locomotion animation, if you want to strafe the target walking set this value to 0.5f")]
     [Range(0f, 1.5f)]
     public float strafeSpeed = 1f;
@@ -40,19 +40,19 @@ public class v_AIMotor : Character
     [Header("--- Sensors - Who is your Target? ---")]
     public v_AISphereSensor sphereSensor;
     public List<string> tagsToDetect = new List<string>() { "Player" };
-    public AIStates currentState = AIStates.Idle;
+    public AIStates currentState = AIStates.PatrolWaypoints;
     public bool drawAgentPath = false;
     public bool displayGizmos;
     [Range(0f, 180f)]
     public float fieldOfView = 95f;
     [Tooltip("Max Distance to detect the Target with FOV")]
-    public float maxDetectDistance = 5f;
+    public float maxDetectDistance = 25f;
     [Tooltip("Min Distance to noticed the Target without FOV")]
-    public float minDetectDistance = 2f;
+    public float minDetectDistance = 5f;
     [Tooltip("Distance to lost the Target")]
     public float distanceToLostTarget = 20f;
     [Tooltip("Distance to stop when chasing the Player")]
-    public float chaseStopDistance = 3.5f;
+    public float chaseStopDistance = 2.5f;
 
     [Header("--- Strafe ---")]
     [Tooltip("Strafe around the target")]
@@ -244,7 +244,12 @@ public class v_AIMotor : Character
     #region AI Locomotion
     public float distanceToAttack
     {
-        get { if (meleeManager) return meleeManager.GetAttackDistance(); return 1f; }
+        get
+        {
+            //if (meleeManager)
+            //    return meleeManager.GetAttackDistance();
+            return 3f;
+        }
     }
     public bool OnCombatArea
     {

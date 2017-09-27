@@ -235,7 +235,8 @@ public class v_AIController : v_AIAnimator, IMeleeFighter
     protected IEnumerator Chase()
     {
         while (currentHealth <= 0) yield return null;
-        agent.speed = Mathf.Lerp(agent.speed, chaseSpeed, smoothSpeed * Time.deltaTime);
+        // agent.speed = Mathf.Lerp(agent.speed, chaseSpeed, smoothSpeed * Time.deltaTime);
+        agent.speed = chaseSpeed;
         agent.stoppingDistance = chaseStopDistance;
 
         if (!isBlocking && !tryingBlock)
@@ -245,7 +246,7 @@ public class v_AIController : v_AIAnimator, IMeleeFighter
             currentState = AIStates.Idle;
 
         // begin the Attack Routine when close to the Target
-        if (TargetDistance <= distanceToAttack && meleeManager != null && canAttack && !actions)
+        if (TargetDistance <= distanceToAttack /* && meleeManager != null */ && canAttack && !actions)
         {
             canAttack = false;
 

@@ -19,6 +19,7 @@ namespace Rpg.Character
                 return InputControl.Instance.InputType;
             }
         }
+        protected vThirdPersonCamera tpCamera;
         public LayerMask clickMoveLayer = 1 << 0;
         [Header("Default Inputs")]
         public GenericInput horizontalInput = new GenericInput("Horizontal");
@@ -81,6 +82,11 @@ namespace Rpg.Character
             {
                 character.Init();
             }
+
+            tpCamera = FindObjectOfType<vThirdPersonCamera>();
+            if (tpCamera)
+                tpCamera.SetMainTarget(this.transform);
+
             cursorPoint = transform.position;
         }
 
