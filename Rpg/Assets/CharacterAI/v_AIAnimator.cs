@@ -149,7 +149,7 @@ using UnityEngine.AI;
             animator.SetFloat("InputMagnitude", strafeInput, .2f, Time.deltaTime);
             animator.SetFloat("InputVertical", actions ? 0 : (_speed != 0) ? _speed : 0, 0.2f, Time.fixedDeltaTime);
             animator.SetFloat("InputHorizontal", _direction, 0.2f, Time.fixedDeltaTime);
-            animator.SetBool("IsStrafing", OnStrafeArea);
+          //  animator.SetBool("IsStrafing", OnStrafeArea);
         }
 
         protected virtual float maxSpeed

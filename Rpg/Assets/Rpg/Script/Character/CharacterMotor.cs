@@ -20,20 +20,21 @@ namespace Rpg.Character
             }
         }
         public bool customAction;
+        public bool AttackAction;
 
         [HideInInspector]
         public bool actions
         {
             get
             {
-                return landHigh || customAction;
+                return landHigh || customAction || AttackAction;
             }
         }
 
         [HideInInspector]
         public PhysicMaterial frictionPhysics, maxFrictionPhysics, slippyPhysics;
         [HideInInspector]
-        public AnimatorStateInfo baseLayerInfo;
+        public AnimatorStateInfo baseLayerInfo , fullBodyInfo;
         [SerializeField]
         protected float groundMinDistance = 0.2f;
         [SerializeField]
@@ -82,6 +83,8 @@ namespace Rpg.Character
 
         [SerializeField]
         public float freeRotationSpeed = 10f;
+        [SerializeField]
+        public float meleeAttackRotationSpeed = 50f;
         public RaycastHit groundHit;
         protected float groundDistance;
 
@@ -116,6 +119,8 @@ namespace Rpg.Character
         #region Direction Variables
         [HideInInspector]
         public Vector3 targetDirection;
+        [HideInInspector]
+        public Vector3 attackDirection;
         protected Quaternion targetRotation;
         [HideInInspector]
         public float strafeInput;
@@ -126,6 +131,12 @@ namespace Rpg.Character
         [HideInInspector]
         public Vector2 oldInput;
         #endregion
+
+        [Tooltip("Speed of the rotation while strafe movement")]
+        public float strafeRotationSpeed = 10f;
+
+        [SerializeField]
+        public bool rotateByWorld = false;
 
         protected bool jumpFwdCondition
         {
@@ -178,6 +189,7 @@ namespace Rpg.Character
         public virtual void UpdateMotor()
         {
             CheckGround();
+            CheckAttackDirection();
             ControlCapsuleHeight();
             ControlJumpBehaviour();
             ControlLocomotion();
@@ -185,7 +197,9 @@ namespace Rpg.Character
 
         void ControlLocomotion()
         {
-            //    if (lockMovement || currentHealth <= 0) return;
+            if (lockMovement || currentHealth <= 0)
+                return;
+
             if (freeLocomotionConditions)
                 FreeMovement();
             else
@@ -371,9 +385,18 @@ namespace Rpg.Character
 
         public void ControlSpeed(float velocity)
         {
-            if (Time.deltaTime == 0) return;
+            if (Time.deltaTime == 0)
+                return;
 
-            if (actions || customAction)
+            if (useRootMotion && !actions && !customAction)
+            {
+                this.velocity = velocity;
+                var deltaPosition = new Vector3(animator.deltaPosition.x, transform.position.y, animator.deltaPosition.z);
+                Vector3 v = (deltaPosition * (velocity > 0 ? velocity : 1f)) / Time.deltaTime;
+                v.y = rigidbody.velocity.y;
+                rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, v, 20f * Time.deltaTime);
+            }
+            else if (actions || customAction || AttackAction)
             {
                 this.velocity = velocity;
                 Vector3 v = Vector3.zero;
@@ -396,12 +419,26 @@ namespace Rpg.Character
                 }
                 else
                 {
-                    if(animator.GetFloat("InputVertical") > 0f)
-                    {
-                        rigidbody.velocity = velY;
-                        rigidbody.AddForce(transform.forward * (velocity * speed) * Time.deltaTime, ForceMode.VelocityChange);
-                    }
+                    rigidbody.velocity = velY;
+                    rigidbody.AddForce(transform.forward * (velocity * speed) * Time.deltaTime, ForceMode.VelocityChange);
+                }
+            }
+        }
 
+        public virtual void CheckAttackDirection()
+        {
+            if(AttackAction)
+            {
+                Vector3 lookDirection = attackDirection.normalized;
+                freeRotation = Quaternion.LookRotation(lookDirection, transform.up);
+                var diferenceRotation = freeRotation.eulerAngles.y - transform.eulerAngles.y;
+                var eulerY = transform.eulerAngles.y;
+                if (isGrounded || (!isGrounded && jumpAirControl))
+                {
+                    if (diferenceRotation < 0 || diferenceRotation > 0)
+                        eulerY = freeRotation.eulerAngles.y;
+                    var euler = new Vector3(transform.eulerAngles.x, eulerY, transform.eulerAngles.z);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(euler), meleeAttackRotationSpeed * Time.deltaTime);
                 }
             }
         }
@@ -508,10 +545,49 @@ namespace Rpg.Character
                 stopMove = false;
         }
 
+        //public virtual void UpdateTargetDirection(Transform referenceTransform = null)
+        //{
+        //    targetDirection = keepDirection ? targetDirection : new Vector3(input.x, 0, input.y);
+        //}
+
+        #region Camera Methods
+
+        public virtual void RotateToTarget(Transform target)
+        {
+            if (target)
+            {
+                Quaternion rot = Quaternion.LookRotation(target.position - transform.position);
+                var newPos = new Vector3(transform.eulerAngles.x, rot.eulerAngles.y, transform.eulerAngles.z);
+                targetRotation = Quaternion.Euler(newPos);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(newPos), strafeRotationSpeed * Time.deltaTime);
+            }
+        }
+
+        /// <summary>
+        /// Update the targetDirection variable using referenceTransform or just input.Rotate by word  the referenceDirection
+        /// </summary>
+        /// <param name="referenceTransform"></param>
         public virtual void UpdateTargetDirection(Transform referenceTransform = null)
         {
-            targetDirection = keepDirection ? targetDirection : new Vector3(input.x, 0, input.y);
+            if (referenceTransform && !rotateByWorld)
+            {
+                var forward = keepDirection ? referenceTransform.forward : referenceTransform.TransformDirection(Vector3.forward);
+                forward.y = 0;
+
+                forward = keepDirection ? forward : referenceTransform.TransformDirection(Vector3.forward);
+                forward.y = 0; //set to 0 because of referenceTransform rotation on the X axis
+
+                //get the right-facing direction of the referenceTransform
+                var right = keepDirection ? referenceTransform.right : referenceTransform.TransformDirection(Vector3.right);
+
+                // determine the direction the player will face based on input and the referenceTransform's right and forward directions
+                targetDirection = input.x * right + input.y * forward;
+            }
+            else
+                targetDirection = keepDirection ? targetDirection : new Vector3(input.x, 0, input.y);
         }
+
+        #endregion
     }
 }
 

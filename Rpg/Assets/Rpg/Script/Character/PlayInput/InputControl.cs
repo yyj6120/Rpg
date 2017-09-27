@@ -186,6 +186,34 @@ namespace Rpg.Character
             }
         }
 
+        /// <summary>
+        /// Get Axis
+        /// </summary>
+        /// <returns></returns>
+        public float GetAxis()
+        {
+            if (string.IsNullOrEmpty(buttonName) || !IsButtonAvailable(this.buttonName) || isKey) return 0;
+
+            // mobile
+            if (inputDevice == InputDevice.Mobile)
+            {
+#if MOBILE_INPUT
+                return CrossPlatformInputManager.GetAxis(this.buttonName);
+#endif
+            }
+            // keyboard/mouse
+            else if (inputDevice == InputDevice.MouseKeyboard)
+            {
+                return Input.GetAxis(this.buttonName);
+            }
+            // joystick
+            else if (inputDevice == InputDevice.Joystick)
+            {
+                return Input.GetAxis(this.buttonName);
+            }
+            return 0;
+        }
+
         public float GetAxisRaw()
         {
             if (string.IsNullOrEmpty(buttonName) || !IsButtonAvailable(this.buttonName) || isKey) return 0;
@@ -275,7 +303,6 @@ namespace Rpg.Character
             }
             return false;
         }
-
         /// <summary>
         /// Get Button
         /// </summary>

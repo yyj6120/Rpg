@@ -127,5 +127,17 @@ namespace Rpg.Character
         {
             AutoCrouchExit(other);
         }
+
+        /// <summary>
+        /// Use another transform as  reference to rotate
+        /// </summary>
+        /// <param name="referenceTransform"></param>
+        public virtual void RotateWithAnotherTransform(Transform referenceTransform)
+        {
+            var newRotation = new Vector3(transform.eulerAngles.x, referenceTransform.eulerAngles.y, transform.eulerAngles.z);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(newRotation), strafeRotationSpeed * Time.fixedDeltaTime);
+            targetRotation = transform.rotation;
+        }
+
     }
 }

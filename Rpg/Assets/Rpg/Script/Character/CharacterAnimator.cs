@@ -4,6 +4,7 @@ namespace Rpg.Character
     public class CharacterAnimator : CharacterMotor
     {
         int baseLayer { get { return animator.GetLayerIndex("Base Layer"); } }
+        int fullbodyLayer { get { return animator.GetLayerIndex("FullBody"); } }
 
         public virtual void UpdateAnimator()
         {
@@ -61,8 +62,12 @@ namespace Rpg.Character
 
         public bool IsAnimatorTag(string tag)
         {
-            if (animator == null) return false;
-            if (baseLayerInfo.IsTag(tag)) return true;
+            if (animator == null)
+                return false;
+            if (baseLayerInfo.IsTag(tag))
+                return true;
+            if (fullBodyInfo.IsTag(tag))
+                return true;
 
             return false;
         }
@@ -70,12 +75,14 @@ namespace Rpg.Character
         public void LayerControl()
         {
             baseLayerInfo = animator.GetCurrentAnimatorStateInfo(baseLayer);
+            fullBodyInfo = animator.GetCurrentAnimatorStateInfo(fullbodyLayer);
         }
 
         public void ActionsControl()
         {
             landHigh = baseLayerInfo.IsName("LandHigh");      
             customAction = IsAnimatorTag("CustomAction");
+            AttackAction = IsAnimatorTag("Attack");
         }
 
         public void MatchTarget(Vector3 matchPosition, Quaternion matchRotation, AvatarTarget target, MatchTargetWeightMask weightMask, float normalisedStartTime, float normalisedEndTime)

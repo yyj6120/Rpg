@@ -17,7 +17,7 @@ namespace Rpg.Character
         protected bool isLockingOn;
 
         [Header("MeleeCombat Inputs")]
-        public GenericInput weakAttackInput = new GenericInput("Alpha2", "RB", "RB");
+        public GenericInput weakAttackInput = new GenericInput("Fire2", "RB", "RB");
         public GenericInput strongAttackInput = new GenericInput("Alpha1", false, "RT", true, "RT", false);
         public GenericInput blockInput = new GenericInput("Mouse1", "LB", "LB");
         public bool strafeWhileLockOn = true;
@@ -80,10 +80,16 @@ namespace Rpg.Character
         /// </summary>
         protected virtual void MeleeWeakAttackInput()
         {
-            if (character.animator == null) return;
+            if (character.animator == null)
+                return;
 
             if (weakAttackInput.GetButtonDown())
             {
+                RaycastHit hit;
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, clickMoveLayer))
+                {
+                    AttackPoint = hit.point;
+                }
                 character.animator.SetInteger("AttackID", meleeManager.GetAttackID());
                 character.animator.SetTrigger("WeakAttack");
             }
@@ -94,7 +100,8 @@ namespace Rpg.Character
         /// </summary>
         protected virtual void MeleeStrongAttackInput()
         {
-            if (character.animator == null) return;
+            if (character.animator == null)
+                return;
 
             if (strongAttackInput.GetButtonDown())
             {
@@ -200,7 +207,8 @@ namespace Rpg.Character
 
         protected virtual void UpdateMeleeAnimations()
         {
-            if (character.animator == null || meleeManager == null) return;
+            if (character.animator == null || meleeManager == null)
+                return;
             character.animator.SetInteger("AttackID", meleeManager.GetAttackID());
         //    character.animator.SetInteger("DefenseID", meleeManager.GetDefenseID());
        //     character.animator.SetBool("IsBlocking", isBlocking);
@@ -213,6 +221,9 @@ namespace Rpg.Character
 
         public void OnEnableAttack()
         {
+            var dir = (AttackPoint - transform.position).normalized;
+            character.attackDirection = new Vector3(dir.x, 0 , dir.z);
+
             //character.currentStaminaRecoveryDelay = meleeManager.GetAttackStaminaRecoveryDelay();
             //character.currentStamina -= meleeManager.GetAttackStaminaCost();
             isAttacking = true;
