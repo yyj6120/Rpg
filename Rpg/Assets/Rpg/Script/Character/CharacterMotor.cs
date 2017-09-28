@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace Rpg.Character
 {
     public class CharacterMotor : Character
     {
+        public UnityEvent OnDead;
+
         public enum LocomotionType
         {
             FreeWithStrafe,
@@ -188,6 +191,7 @@ namespace Rpg.Character
         }
         public virtual void UpdateMotor()
         {
+            CheckHealth();
             CheckGround();
             CheckAttackDirection();
             ControlCapsuleHeight();
@@ -204,6 +208,17 @@ namespace Rpg.Character
                 FreeMovement();
             else
                 StrafeMovement();
+        }
+
+        void CheckHealth()
+        {
+            if (currentHealth <= 0 && !isDead)
+            {
+                isDead = true;
+                OnDead.Invoke();
+                if (onDead != null)
+                    onDead.Invoke(gameObject);
+            }
         }
 
         void ControlCapsuleHeight()
@@ -278,7 +293,8 @@ namespace Rpg.Character
 
         void CheckGroundDistance()
         {
-            if (isDead) return;
+            if (isDead)
+                return;
 
             if (capsuleCollider != null)
             {
@@ -305,7 +321,8 @@ namespace Rpg.Character
 
         protected void ControlJumpBehaviour()
         {
-            if (!isJumping) return;
+            if (!isJumping)
+                return;
 
             jumpCounter -= Time.deltaTime;
             if (jumpCounter <= 0)
@@ -321,8 +338,10 @@ namespace Rpg.Character
 
         public void AirControl()
         {
-            if (isGrounded) return;
-            if (!jumpFwdCondition) return;
+            if (isGrounded)
+                return;
+            if (!jumpFwdCondition)
+                return;
 
             var velY = transform.forward * jumpForward * speed;
             velY.y = rigidbody.velocity.y;
@@ -525,6 +544,32 @@ namespace Rpg.Character
             {
                 isSliding = false;
                 isGrounded = true;
+            }
+        }
+
+        public void DeathBehaviour()
+        {
+            // lock the player input
+            lockMovement = true;
+            // change the culling mode to render the animation until finish
+            animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+            // trigger die animation            
+            if (deathBy == DeathBy.Animation || deathBy == DeathBy.AnimationWithRagdoll)
+                animator.SetBool("isDead", true);
+        }
+
+        protected void RemoveComponents()
+        {
+            if (capsuleCollider != null)
+                Destroy(capsuleCollider);
+            if (rigidbody != null)
+                Destroy(rigidbody);
+            if (animator != null)
+                Destroy(animator);
+            var comps = GetComponents<MonoBehaviour>();
+            for (int i = 0; i < comps.Length; i++)
+            {
+                Destroy(comps[i]);
             }
         }
 

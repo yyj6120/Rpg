@@ -5,7 +5,6 @@ namespace Rpg.Character
 {
     public class OnDeadTrigger : MonoBehaviour
     {
-
         public UnityEvent OnDead;
         void Start()
         {

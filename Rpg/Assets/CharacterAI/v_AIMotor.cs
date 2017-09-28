@@ -549,7 +549,9 @@ public class v_AIMotor : Character
     {
         // ignore damage if the character is rolling, dead or the animator is disable
         if (isRolling || currentHealth <= 0 || !animator.enabled)
+        {
             return;
+        }
         if (!damage.ignoreDefense && !actions && CheckChanceToRoll())
             return;
 

@@ -4,7 +4,7 @@ using System;
 
 namespace Rpg.Character
 {
-    class MeleeCombatInput : ThirdPersonInput , IMeleeFighter
+    public class MeleeCombatInput : ThirdPersonInput , IMeleeFighter
     {
         [System.Serializable]
         public new class OnUpdateEvent : UnityEngine.Events.UnityEvent<MeleeCombatInput> { }
@@ -12,9 +12,22 @@ namespace Rpg.Character
         #region Variables                
 
         protected MeleeManager meleeManager;
-        //protected bool isAttacking;
+        protected bool isAttacking;
         protected bool isBlocking;
         protected bool isLockingOn;
+
+        [HideInInspector]
+        public Vector3 AttackPoint;
+
+        public virtual bool lockInventory
+        {
+            get
+            {
+                return isAttacking || character.isDead;
+            }
+        }
+        [HideInInspector]
+        public bool lockInputByItemManager;
 
         [Header("MeleeCombat Inputs")]
         public GenericInput weakAttackInput = new GenericInput("Fire2", "RB", "RB");

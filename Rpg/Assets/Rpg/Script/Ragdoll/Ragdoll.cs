@@ -364,15 +364,15 @@ public class Ragdoll : MonoBehaviour
     // set all rigidbodies to kinematic
     void setKinematic(bool newValue)
     {
-        var _hips = characterHips.GetComponent<Rigidbody>();
-        _hips.isKinematic = newValue;
-        Component[] components = _hips.transform.GetComponentsInChildren(typeof(Rigidbody));
+        //var _hips = characterHips.GetComponent<Rigidbody>();
+        //_hips.isKinematic = newValue;
+        //Component[] components = _hips.transform.GetComponentsInChildren(typeof(Rigidbody));
 
-        foreach (Component c in components)
-        {
-            if (!ignoreTags.Contains(c.transform.tag))
-                (c as Rigidbody).isKinematic = newValue;
-        }
+        //foreach (Component c in components)
+        //{
+        //    if (!ignoreTags.Contains(c.transform.tag))
+        //        (c as Rigidbody).isKinematic = newValue;
+        //}
     }
 
     // set all colliders to trigger
@@ -381,15 +381,15 @@ public class Ragdoll : MonoBehaviour
         if (!disableColliders)
             return;
 
-        var _hips = characterHips.GetComponent<Collider>();
-        _hips.enabled = !newValue;
-        Component[] components = _hips.transform.GetComponentsInChildren(typeof(Collider));
+        //var _hips = characterHips.GetComponent<Collider>();
+        //_hips.enabled = !newValue;
+        //Component[] components = _hips.transform.GetComponentsInChildren(typeof(Collider));
 
-        foreach (Component c in components)
-        {
-            if (!ignoreTags.Contains(c.transform.tag))
-                if (!c.transform.Equals(transform)) (c as Collider).enabled = !newValue;
-        }
+        //foreach (Component c in components)
+        //{
+        //    if (!ignoreTags.Contains(c.transform.tag))
+        //        if (!c.transform.Equals(transform)) (c as Collider).enabled = !newValue;
+        //}
     }
 
     // destroy the components if the character is dead

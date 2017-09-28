@@ -4,8 +4,13 @@ namespace Rpg.Character
 {
     public class ThirdPersonInput : MonoBehaviour
     {
+        public delegate void OnEnableCursor(Vector3 position);
+        public delegate void OnDisableCursor();
+        public OnEnableCursor onEnableCursor;
+        public OnDisableCursor onDisableCursor;
+
         [System.Serializable]
-        public class OnUpdateEvent : UnityEngine.Events.UnityEvent<ThirdPersonInput> { }
+        public class OnUpdateEvent : UnityEngine.Events.UnityEvent<MeleeCombatInput> { }
         public enum GameplayInputStyle
         {
             ClickAndMove,
@@ -32,7 +37,11 @@ namespace Rpg.Character
         public bool lockCamera;
         [HideInInspector]
         public bool keepDirection;
+
+        protected bool isRunning;
+
         public LayerMask clickMoveLayer = 1 << 0;
+
         protected Vector2 oldInput;
         [Header("Default Inputs")]
         public GenericInput horizontalInput = new GenericInput("Horizontal");
@@ -49,31 +58,19 @@ namespace Rpg.Character
         public bool lockInput;
         [HideInInspector]
         public Vector3 cursorPoint;
-        [HideInInspector]
-        public Vector3 AttackPoint;
 
         public ThirdPersonController character;
         [HideInInspector]
-        public bool lockInputByItemManager;
-        [HideInInspector]
         public OnUpdateEvent onUpdateInput = new OnUpdateEvent();
-
-        protected bool isAttacking;
-
-        public virtual bool lockInventory
-        {
-            get
-            {
-                return isAttacking || character.isDead;
-            }
-        }
 
         protected virtual void Start()
         {
             character = GetComponent<ThirdPersonController>();
             CharacterInit();
         }
-
+        /// <summary>
+        /// Input Event , Camera States 체크 
+        /// </summary>
         protected virtual void LateUpdate()
         {
             if (character == null || lockInput || Time.timeScale == 0)
@@ -84,10 +81,13 @@ namespace Rpg.Character
             UpdateCameraStates();
 
         }
-
+        /// <summary>
+        /// 케릭터 물리모션 Move,Jump;
+        /// </summary>
         protected virtual void FixedUpdate()
         {
-            MoveToPoint();
+            if (isRunning)
+                MoveToPoint();
             character.AirControl();
             CameraInput();
             character.UpdateTargetDirection();
@@ -95,8 +95,8 @@ namespace Rpg.Character
 
         protected virtual void Update()
         {
-                character.UpdateMotor();
-                character.UpdateAnimator();
+            character.UpdateMotor();
+            character.UpdateAnimator();
         }
 
         protected virtual void CharacterInit()
@@ -201,6 +201,10 @@ namespace Rpg.Character
             {
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, clickMoveLayer))
                 {
+                    if (onEnableCursor != null)
+                        onEnableCursor(hit.point);
+
+                    isRunning = true;
                     cursorPoint = hit.point;
                 }
             }
@@ -219,10 +223,15 @@ namespace Rpg.Character
             }
             else
             {
-                //if (onDisableCursor != null)
-                //    onDisableCursor();
-
                 character.input = Vector2.Lerp(character.input, Vector3.zero, 20f * Time.deltaTime);
+                if (character.input.magnitude < 0.1 && isRunning)
+                {
+                    character.input = Vector2.zero;
+                    isRunning = false;
+                }
+
+                if (onDisableCursor != null)
+                    onDisableCursor();
             }
         }
 
@@ -230,7 +239,7 @@ namespace Rpg.Character
         {
             var _a = new Vector3(a.x, transform.position.y, a.z);
             var _b = new Vector3(b.x, transform.position.y, b.z);
-            return Vector3.Distance(_a, _b) <= 0.5f;
+            return Vector3.Distance(_a, _b) <= 0.25f;
         }
 
         protected virtual void JumpInput()

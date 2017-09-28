@@ -22,7 +22,7 @@ namespace Rpg.Character
 
     public abstract class Character : MonoBehaviour , IDamageReceiver
     {
-        public float maxHealth = 100f;
+        public float maxHealth = 1000f;
         [HideInInspector]
         protected float health = 1000.0f;
         [HideInInspector]

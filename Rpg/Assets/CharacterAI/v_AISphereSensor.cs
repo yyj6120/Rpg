@@ -70,12 +70,10 @@ public class v_AISphereSensor : MonoBehaviour
                 var vChar = targetsInArea[0].GetComponent<Character>();
                 if (vChar != null && vChar.currentHealth > 0)
                 {
-                    Debug.Log("dasdasdasdads");
                     return vChar;
                 }
             }
         }
-
         return null;
     }
 
@@ -99,7 +97,7 @@ public class v_AISphereSensor : MonoBehaviour
 
     void SortTargets()
     {
-        for (int i = targetsInArea.Count-1; i >=0; i--)
+        for (int i = targetsInArea.Count-1; i>=0; i--)
         {
             var t = targetsInArea[i];
             if (t == null)

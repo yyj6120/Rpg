@@ -514,7 +514,7 @@ namespace Rpg.Item
             onOpenCloseInventory.Invoke(value);
         }
 
-        public void UpdateInput(ThirdPersonInput tpInput)
+        public void UpdateInput(MeleeCombatInput tpInput)
         {
             inventory.lockInput = tpInput.lockInventory;
             tpInput.lockInputByItemManager = inventory.isOpen || inEquip;

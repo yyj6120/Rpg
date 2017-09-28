@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+
 namespace Rpg.Character
 {
     public class CharacterAnimator : CharacterMotor
     {
         int baseLayer { get { return animator.GetLayerIndex("Base Layer"); } }
         int fullbodyLayer { get { return animator.GetLayerIndex("FullBody"); } }
+        private bool triggerDieBehaviour;
 
         public virtual void UpdateAnimator()
         {
@@ -12,6 +14,7 @@ namespace Rpg.Character
             LayerControl();
             ActionsControl();
             LocomotionAnimation();
+            DeadAnimation();
         }
 
         public void LocomotionAnimation()
@@ -80,7 +83,8 @@ namespace Rpg.Character
 
         public void ActionsControl()
         {
-            landHigh = baseLayerInfo.IsName("LandHigh");      
+            landHigh = baseLayerInfo.IsName("LandHigh");
+            lockMovement = IsAnimatorTag("LockMovement");
             customAction = IsAnimatorTag("CustomAction");
             AttackAction = IsAnimatorTag("Attack");
         }
@@ -97,5 +101,40 @@ namespace Rpg.Character
 
             animator.MatchTarget(matchPosition, matchRotation, target, weightMask, normalisedStartTime, normalisedEndTime);
         }
+
+        void DeadAnimation()
+        {
+            if (!isDead)
+                return;
+
+            if (!triggerDieBehaviour)
+            {
+                triggerDieBehaviour = true;
+                DeathBehaviour();
+            }
+            // death by animation
+            if (deathBy == DeathBy.Animation)
+            {
+                if (fullBodyInfo.IsName("Dead"))
+                {
+                    if (fullBodyInfo.normalizedTime >= 0.99f && groundDistance <= 0.15f)
+                        RemoveComponents();
+                }
+            }
+            // death by animation & ragdoll after a time
+            else if (deathBy == DeathBy.AnimationWithRagdoll)
+            {
+                if (fullBodyInfo.IsName("Dead"))
+                {
+                    // activate the ragdoll after the animation finish played
+                    if (fullBodyInfo.normalizedTime >= 0.8f)
+                        SendMessage("ActivateRagdoll", SendMessageOptions.DontRequireReceiver);
+                }
+            }
+            // death by ragdoll
+            else if (deathBy == DeathBy.Ragdoll)
+                SendMessage("ActivateRagdoll", SendMessageOptions.DontRequireReceiver);
+        }
+
     }
 }
