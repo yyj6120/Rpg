@@ -117,7 +117,7 @@ namespace Rpg.Character
             {
                 if (fullBodyInfo.IsName("Dead"))
                 {
-                    if (fullBodyInfo.normalizedTime >= 0.99f && groundDistance <= 0.15f)
+                   // if (fullBodyInfo.normalizedTime >= 0.5f && groundDistance <= 0.15f)
                         RemoveComponents();
                 }
             }
