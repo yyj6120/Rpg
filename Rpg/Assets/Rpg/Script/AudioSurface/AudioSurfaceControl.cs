@@ -7,22 +7,27 @@ namespace Rpg.Character
     [RequireComponent(typeof(AudioSource))]
     class AudioSurfaceControl : MonoBehaviour
     {
-        AudioSource source;
-        bool isWorking;
+        private AudioSource source;
+        private bool isWorking;
+        private CustomObjectPool unUsePool;
 
-        public void PlayOneShot(AudioClip clip)
+        public void PlayOneShot(AudioClip clip, CustomObjectPool unUsePool)
         {
             if (!source)
                 source = GetComponent<AudioSource>();
 
             source.PlayOneShot(clip);
             isWorking = true;
+            this.unUsePool = unUsePool;
         }
         void Update()
         {
-            if (isWorking && !source.isPlaying)           
-                Destroy(gameObject);           
+            if (isWorking && !source.isPlaying)
+            {
+                unUsePool.UnUseInsert(gameObject);
+            }
         }
+
         public AudioMixerGroup outputAudioMixerGroup
         {
             set

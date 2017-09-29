@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.Audio;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 namespace Rpg.Character
 {
@@ -12,6 +13,16 @@ namespace Rpg.Character
 
     class FootStepFromTexture : FootPlantingPlayer
     {
+        [System.Serializable]
+        public class SmokePool : UnityEvent<GameObject, FootStepObject> { };
+        [System.Serializable]
+        public class StepMarkPool : UnityEvent<Transform , GameObject, FootStepObject , LayerMask > { };
+
+        public SmokePool smokePool;
+        public StepMarkPool stepMarkPool;
+        public GameObject stepSmokePaticle;
+        public GameObject stepMarkPaticle;
+        public LayerMask stepLayer;
         public AnimationType animationType = AnimationType.Humanoid;
         public bool debugTextureName;
 
@@ -115,14 +126,13 @@ namespace Rpg.Character
 
         public void StepOnTerrain(FootStepObject footStepObject)
         {
-            if (currentStep != null && currentStep == footStepObject.sender) return;
+            if (currentStep != null && currentStep == footStepObject.sender)
+                return;
             currentStep = footStepObject.sender;
 
             if (terrainData)
                 surfaceIndex = GetMainTexture(footStepObject.sender.position);
 
-            //bool valid = (terrainData != null && terrainData.splatPrototypes != null && terrainData.splatPrototypes.Length > 0
-            //&& terrainData.splatPrototypes.Length <= surfaceIndex && terrainData.splatPrototypes[surfaceIndex].texture != null);
             var name = (terrainData != null && terrainData.splatPrototypes.Length > 0) ? (terrainData.splatPrototypes[surfaceIndex]).texture.name : "";
             footStepObject.name = name;
             PlayFootFallSound(footStepObject);
@@ -133,8 +143,11 @@ namespace Rpg.Character
 
         public void StepOnMesh(FootStepObject footStepObject)
         {
-            if (currentStep != null && currentStep == footStepObject.sender) return;
+            if (currentStep != null && currentStep == footStepObject.sender)
+                return;
             currentStep = footStepObject.sender;
+            smokePool.Invoke(stepSmokePaticle, footStepObject);
+            stepMarkPool.Invoke(stepSmokePaticle.transform , stepMarkPaticle, footStepObject , stepLayer);
             PlayFootFallSound(footStepObject);
         }
     }

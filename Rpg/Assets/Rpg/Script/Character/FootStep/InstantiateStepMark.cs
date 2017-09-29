@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace Rpg.Character
 {
@@ -6,8 +7,13 @@ namespace Rpg.Character
     {
         public GameObject stepMark;
         public LayerMask stepLayer;
-        public float timeToDestroy = 5f;
+        public float activeTime = 3f;
 
+        public CustomObjectPool objectPool = new CustomObjectPool();
+        /// <summary>
+        /// 발자국
+        /// </summary>
+        /// <param name="footStep"></param>
         void StepMark(FootStepObject footStep)
         {
             RaycastHit hit;
@@ -16,11 +22,12 @@ namespace Rpg.Character
                 var angle = Quaternion.FromToRotation(footStep.sender.up, hit.normal);
                 if (stepMark != null)
                 {
-                    var step = Instantiate(stepMark, hit.point, angle * footStep.sender.rotation) as GameObject;
-                    Destroy(step, timeToDestroy);
+                    objectPool.Register(stepMark, stepMark.transform.parent);
+                    var step = objectPool.GetInstance();
+                    step.transform.position = hit.point;
+                    step.transform.rotation = angle * footStep.sender.rotation;
+                    StartCoroutine(objectPool.UnUseInsert(step, activeTime));
                 }
-                else
-                    Destroy(gameObject, timeToDestroy);
             }
         }
     }

@@ -27,7 +27,8 @@ namespace Rpg.Character
 
         void OnTriggerEnter(Collider other)
         {
-            if (footStepFromTexture == null) return;
+            if (footStepFromTexture == null)
+                return;
 
             if (other.GetComponent<Terrain>() != null)
                 footStepFromTexture.StepOnTerrain(new FootStepObject(transform, other.transform));

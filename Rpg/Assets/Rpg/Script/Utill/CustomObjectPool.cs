@@ -5,12 +5,15 @@ using System.Collections.Generic;
 public class CustomObjectPool
 {
     public Transform parent = null;
-    protected GameObject baseObject;
+    protected GameObject baseObject = null;
     protected List<GameObject> reUsePool = new List<GameObject>();
     protected Dictionary<int, GameObject> usePool = new Dictionary<int, GameObject>();
     public Dictionary<int, GameObject> usePoolObject
     {
-        get { return usePool; }
+        get
+        {
+            return usePool;
+        }
     }
     public CustomObjectPool()
     {
@@ -23,7 +26,10 @@ public class CustomObjectPool
 
     public int UsePoolCount
     {
-        get { return usePool.Count; }
+        get
+        {
+            return usePool.Count;
+        }
     }
 
     public void Register(GameObject go, Transform parent)
@@ -102,9 +108,9 @@ public class CustomObjectPool
         reUsePool.Add(go);
     }
 
-    public IEnumerator UnUseInsert(GameObject go, float _time)
-    {
-        yield return new WaitForSeconds(_time);
+    public IEnumerator UnUseInsert(GameObject go, float time)
+    { 
+        yield return new WaitForSeconds(time);
         UnUseInsert(go);
     }
 
@@ -114,6 +120,5 @@ public class CustomObjectPool
             return Object.Instantiate(original);
         else
             return null;
-
     }
 }

@@ -55,7 +55,9 @@ public class MeleeAttackObject : MonoBehaviour
         if (value)
             onEnableDamage.Invoke();
         else
+        {
             onDisableDamage.Invoke();
+        }
     }
 
     /// <summary>

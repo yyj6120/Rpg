@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class HitDamageParticle : MonoBehaviour
 {
+    [System.Serializable]
+    public class TriggerHitParticlePool : UnityEvent<GameObject, HittEffectInfo , Transform> { }
+
     public GameObject defaultHitEffect;
     public List<HitEffect> customHitEffects = new List<HitEffect>();
+    public TriggerHitParticlePool HitParticlePool;
 
     IEnumerator Start()
     {
@@ -46,10 +51,9 @@ public class HitDamageParticle : MonoBehaviour
         }
         else if (defaultHitEffect != null)
         {
-            Instantiate(defaultHitEffect, hitEffectInfo.position, hitEffectInfo.rotation);
+            HitParticlePool.Invoke(defaultHitEffect, hitEffectInfo , transform );
         }
     }
-
 }
 
 public class HittEffectInfo

@@ -11,6 +11,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a352abd22fcbc74d91e7570f52d00dc, type: 3}
   m_Name: defaultSurface
   m_EditorClassIdentifier: 
+  soundPool:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114530270949926570, guid: e62da80248e2bf84c896ed8dde948cf6,
+          type: 2}
+        m_MethodName: TriggerStepSound
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Rpg.Character.AudioSurface+PlayRandomClipPool, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   audioSource: {fileID: 82668158561405724, guid: 7484807caba59f14093aebbef375b0b6,
     type: 2}
   audioMixerGroup: {fileID: 243989090004871364, guid: 167050cef855a84408a714f57bbff589,
@@ -22,4 +39,3 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e5ae416f49602c1409e7c0d85ae0215c, type: 3}
   - {fileID: 8300000, guid: 169f75c2c9f5fae4c9147639256eb0c8, type: 3}
   - {fileID: 8300000, guid: 375af61fe5c06774084832c408e31683, type: 3}
-  particleObject: {fileID: 135586, guid: 67c428c734a00f044a055bb9bc87b989, type: 2}

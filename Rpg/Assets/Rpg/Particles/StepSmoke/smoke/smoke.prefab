@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1524782}
   - component: {fileID: 1223974}
   - component: {fileID: 2660052}
-  - component: {fileID: 114617081222620120}
   m_Layer: 0
   m_Name: smoke
   m_TagString: Untagged
@@ -61,7 +60,7 @@ ParticleAnimator:
   force: {x: 0, y: 0, z: 0}
   damping: 1
   stopSimulation: 0
-  autodestruct: 1
+  autodestruct: 0
 --- !u!15 &1524782
 EllipsoidParticleEmitter:
   m_ObjectHideFlags: 1
@@ -170,19 +169,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 135586}
   m_IsPrefabParent: 1
---- !u!114 &114617081222620120
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 135586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7175c371b9ef7ef40a568b64819efbf6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stepMark: {fileID: 1001956787763468, guid: 9f13efc8b9698c345989f94079f39e4b, type: 2}
-  stepLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  timeToDestroy: 3

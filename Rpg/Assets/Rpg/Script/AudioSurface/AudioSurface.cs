@@ -1,18 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Audio;
+using UnityEngine.Events;
 
 namespace Rpg.Character
 {
     public class AudioSurface : ScriptableObject
     {
+        #region pool value
+        [System.Serializable]
+        public class PlayRandomClipPool : UnityEvent<GameObject, FootStepObject, AudioMixerGroup, List<AudioClip>> { }
+        public PlayRandomClipPool soundPool;
+        #endregion
+
         public AudioSource audioSource;
-        public AudioMixerGroup audioMixerGroup;                
-        public List<string> TextureOrMaterialNames;            
-        public List<AudioClip> audioClips;                     
-        public GameObject particleObject;                                                                                            
+        public AudioMixerGroup audioMixerGroup;
+        public List<string> TextureOrMaterialNames;
+        public List<AudioClip> audioClips;
         private FisherYatesRandom randomSource = new FisherYatesRandom();
-         
+
         public AudioSurface()
         {
             audioClips = new List<AudioClip>();
@@ -27,29 +33,7 @@ namespace Rpg.Character
             if (randomSource == null)
                 randomSource = new FisherYatesRandom();
 
-            GameObject audioObject = null;
-            if (audioSource != null)
-            {
-                audioObject = Instantiate(audioSource.gameObject, footStepObject.sender.position, Quaternion.identity) as GameObject;
-            }
-            else
-            {
-                audioObject = new GameObject("audioObject");
-                audioObject.transform.position = footStepObject.sender.position;
-            }
-
-            var source = audioObject.AddComponent<AudioSurfaceControl>();
-            if (audioMixerGroup != null)
-            {
-                source.outputAudioMixerGroup = audioMixerGroup;
-            }
-            int index = randomSource.Next(audioClips.Count);
-            if (particleObject)
-            {
-                var particle = Instantiate(particleObject, footStepObject.sender.position, footStepObject.sender.rotation) as GameObject;
-                particle.SendMessage("StepMark", footStepObject, SendMessageOptions.DontRequireReceiver);
-            }
-            source.PlayOneShot(audioClips[index]);
+            soundPool.Invoke(audioSource.gameObject, footStepObject, audioMixerGroup, audioClips);
         }
     }
 }
