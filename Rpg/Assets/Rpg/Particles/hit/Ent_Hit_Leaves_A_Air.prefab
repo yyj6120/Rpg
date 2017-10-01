@@ -37,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4579844942401698}
   - component: {fileID: 198598499039478890}
+  - component: {fileID: 114984753005504858}
   - component: {fileID: 199456304193912290}
   m_Layer: 0
   m_Name: Ent_Hit_Leaves_A_Air
@@ -103,6 +104,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114984753005504858
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1114798571820956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fef2573f2ace0974c9d8d9660a334b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 0.5
 --- !u!198 &198598499039478890
 ParticleSystem:
   m_ObjectHideFlags: 1

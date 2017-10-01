@@ -10,19 +10,6 @@ public class ObjectPoolManager : MonoBehaviour
     private CustomObjectPool objectPool = new CustomObjectPool();
 
     /// <summary>
-    ///  hit 파티클 풀링
-    /// </summary>
-    /// <param name="particle"></param>
-    /// <param name="hitEffectInfo"></param>
-    public void TriggerHitParticlePooling(GameObject particle, HittEffectInfo hitEffectInfo, Transform parent)
-    {
-        objectPool.Register(particle, parent);
-        GameObject defaultHitEffect = objectPool.GetInstance();
-        defaultHitEffect.transform.position = hitEffectInfo.position;
-        defaultHitEffect.transform.rotation = hitEffectInfo.rotation;
-        StartCoroutine(objectPool.UnUseInsert(defaultHitEffect, 1));
-    }
-    /// <summary>
     /// 발걸음 소리 풀링
     /// </summary>
     /// <param name="audioSource"></param>
@@ -31,7 +18,6 @@ public class ObjectPoolManager : MonoBehaviour
     public void TriggerStepSound(GameObject audioSource, FootStepObject footStepObject, AudioMixerGroup audioMixerGroup, List<AudioClip> audioClips)
     {
         GameObject audioObject = null;
-
         if (audioSource != null)
         {
             objectPool.Register(audioSource, footStepObject.sender);
@@ -49,27 +35,15 @@ public class ObjectPoolManager : MonoBehaviour
         source.PlayOneShot(audioClips[index], objectPool);
     }
     /// <summary>
-    /// 스모크 on
+    /// 발자국 on
     /// </summary>
-    /// <param name="smoke"></param>
-    /// <param name="footStepObject"></param>
-    public void TriggerSmokePaticle(GameObject smoke, FootStepObject footStepObject)
-    {
-        GameObject stepSmoke = null;
-        if (smoke)
-        {
-            objectPool.Register(smoke, footStepObject.sender);
-            stepSmoke = objectPool.GetInstance();
-            stepSmoke.transform.position = footStepObject.sender.position;
-            stepSmoke.transform.rotation = footStepObject.sender.rotation;
-            StartCoroutine(objectPool.UnUseInsert(stepSmoke, 0.5f));
-        }
-    }
-
-    public void TriggerStepMarkPaticle(Transform markPoint , GameObject stepMark, FootStepObject footStep , LayerMask stepLayer)
+    /// <param name="stepMark"></param>
+    /// <param name="footStep"></param>
+    /// <param name="stepLayer"></param>
+    public void TriggerStepMarkPaticle(GameObject stepMark, FootStepObject footStep , LayerMask stepLayer)
     {
         RaycastHit hit;
-        if (Physics.Raycast(markPoint.position + new Vector3(0, 0.1f, 0), -footStep.sender.up, out hit, 1f, stepLayer))
+        if (Physics.Raycast(footStep.sender.position + new Vector3(0, 0.1f, 0), -footStep.sender.up, out hit, 1f, stepLayer))
         {
             var angle = Quaternion.FromToRotation(footStep.sender.up, hit.normal);
             if (stepMark != null)

@@ -51,7 +51,8 @@ public class HitDamageParticle : MonoBehaviour
         }
         else if (defaultHitEffect != null)
         {
-            HitParticlePool.Invoke(defaultHitEffect, hitEffectInfo , transform );
+            Instantiate(defaultHitEffect, hitEffectInfo.position, hitEffectInfo.rotation);
+         //   HitParticlePool.Invoke(defaultHitEffect, hitEffectInfo , transform );
         }
     }
 }

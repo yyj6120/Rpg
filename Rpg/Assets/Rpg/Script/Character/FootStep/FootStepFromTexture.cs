@@ -14,11 +14,7 @@ namespace Rpg.Character
     class FootStepFromTexture : FootPlantingPlayer
     {
         [System.Serializable]
-        public class SmokePool : UnityEvent<GameObject, FootStepObject> { };
-        [System.Serializable]
-        public class StepMarkPool : UnityEvent<Transform , GameObject, FootStepObject , LayerMask > { };
-
-        public SmokePool smokePool;
+        public class StepMarkPool : UnityEvent<GameObject, FootStepObject , LayerMask > { };
         public StepMarkPool stepMarkPool;
         public GameObject stepSmokePaticle;
         public GameObject stepMarkPaticle;
@@ -146,8 +142,12 @@ namespace Rpg.Character
             if (currentStep != null && currentStep == footStepObject.sender)
                 return;
             currentStep = footStepObject.sender;
-            smokePool.Invoke(stepSmokePaticle, footStepObject);
-            stepMarkPool.Invoke(stepSmokePaticle.transform , stepMarkPaticle, footStepObject , stepLayer);
+            if(stepSmokePaticle)
+            {
+                var particle = Instantiate(stepSmokePaticle, footStepObject.sender.position, footStepObject.sender.rotation) as GameObject;
+                Destroy(particle, 0.5f);
+            }
+            stepMarkPool.Invoke(stepMarkPaticle, footStepObject , stepLayer);
             PlayFootFallSound(footStepObject);
         }
     }
