@@ -52,7 +52,8 @@ namespace Rpg.Character
 
         protected virtual void TriggerActionInput()
         {
-            if (triggerAction == null) return;
+            if (triggerAction == null)
+                return;
             if (canTriggerAction)
             {
                 if ((triggerAction.autoAction && actionConditions) || (actionInput.GetButtonDown() && actionConditions))
