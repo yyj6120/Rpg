@@ -14,6 +14,7 @@ namespace Rpg.Item
         public delegate List<Item> GetItemsDelegate();
         public GetItemsDelegate GetItemsHandler;
         public InventoryWindow firstWindow;
+
         [Range(0, 1)]
         public float timeScaleWhileIsOpen = 0;
         public bool dontDestroyOnLoad = true;

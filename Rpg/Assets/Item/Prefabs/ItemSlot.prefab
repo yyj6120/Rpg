@@ -541,6 +541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 018e880984784874c98e46fae1a7460e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stackBox: {fileID: 121308}
   icon: {fileID: 11451614}
   blockIcon: {fileID: 0}
   checkIcon: {fileID: 114000010888591336}

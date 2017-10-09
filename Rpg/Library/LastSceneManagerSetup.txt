@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Rpg/Scene/Rpg_ztest.unity
+- path: Assets/Rpg/Scene/Rpg_Village.unity
   isLoaded: 1
   isActive: 1

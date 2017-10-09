@@ -90,7 +90,6 @@ namespace Rpg.Character
                 MoveToPoint();
             character.AirControl();
             CameraInput();
-            character.UpdateTargetDirection();
         }
 
         protected virtual void Update()
@@ -190,6 +189,22 @@ namespace Rpg.Character
             if (gameplayInputStyle == GameplayInputStyle.ClickAndMove)
             {
                 ClickAndMove();
+            }
+            else
+            {
+                ControllerInput();
+            }
+        }
+
+        protected virtual void ControllerInput()
+        {
+            // gets input from mobile           
+            character.input.x = horizontalInput.GetAxis();
+            character.input.y = verticallInput.GetAxis();
+            // update oldInput to compare with current Input if keepDirection is true
+            if (!keepDirection)
+            {
+                oldInput = character.input;
             }
         }
 

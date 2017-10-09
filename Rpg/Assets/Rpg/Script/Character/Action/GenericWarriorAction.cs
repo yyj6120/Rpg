@@ -44,7 +44,8 @@ namespace Rpg.Character
 
         void OnAnimatorMove()
         {
-            if (!playingAnimation) return;
+            if (!playingAnimation)
+                return;
             // enable movement using full root motion
             transform.rotation = thirdPersonInput.character.animator.rootRotation;
             transform.position = thirdPersonInput.character.animator.rootPosition;
@@ -54,6 +55,7 @@ namespace Rpg.Character
         {
             if (triggerAction == null)
                 return;
+
             if (canTriggerAction)
             {
                 if ((triggerAction.autoAction && actionConditions) || (actionInput.GetButtonDown() && actionConditions))
@@ -114,7 +116,10 @@ namespace Rpg.Character
         {
             if (other.gameObject.CompareTag(actionTag))
             {
-                if (triggerAction != null) triggerAction.OnPlayerEnter.Invoke();
+                if (triggerAction != null)
+                {
+                    triggerAction.OnPlayerEnter.Invoke();
+                }
             }
         }
 
@@ -130,7 +135,10 @@ namespace Rpg.Character
         {
             if (other.gameObject.CompareTag(actionTag))
             {
-                if (triggerAction != null) triggerAction.OnPlayerExit.Invoke();
+                if (triggerAction != null)
+                {
+                    triggerAction.OnPlayerExit.Invoke();
+                }
                 ResetPlayerSettings();
             }
         }

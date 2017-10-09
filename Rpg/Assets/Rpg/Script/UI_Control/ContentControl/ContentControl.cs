@@ -1,119 +1,108 @@
 ﻿using UnityEngine;
-namespace Assets._3.Script.UI_Control.ContentControl
+
+public interface IContent
 {
-    interface IContent
+    void InputClassSelectContent();
+    void InputBaseEquipment();
+    void InputNameSetting();
+}
+public class ContentControl : MonoBehaviour
+{
+    #region Variables
+    public GameObject classSelectObject;
+    public GameObject baseEquipmentContentObject;
+    public GameObject nameSettingContentObject;
+
+    IContent content;
+    IContent classSelect;
+    IContent baseEquipment;
+    IContent nameSetting;
+
+    public IContent ClassSelect
     {
-        void InputHome();
-        void InputCharacterSelect();
-        void InputBaseEquipment();
-        void InputCharacterCreate();
+        get
+        {
+            return classSelect;
+        }
+
+        set
+        {
+            classSelect = value;
+        }
     }
-    class ContentControl : MonoBehaviour
+
+    public IContent BaseEquipment
     {
-        #region Variables
-        IContent home;
-        IContent charterSelect;
-        IContent baseEquipment;
-        IContent characterCreate;
-        IContent content;
-
-        internal IContent Home
+        get
         {
-            get
-            {
-                return home;
-            }
-
-            set
-            {
-                home = value;
-            }
+            return baseEquipment;
         }
 
-        internal IContent CharterSelect
+        set
         {
-            get
-            {
-                return charterSelect;
-            }
-
-            set
-            {
-                charterSelect = value;
-            }
+            baseEquipment = value;
         }
-
-        internal IContent BaseEquipment
-        {
-            get
-            {
-                return baseEquipment;
-            }
-
-            set
-            {
-                baseEquipment = value;
-            }
-        }
-
-        internal IContent CharacterCreate
-        {
-            get
-            {
-                return characterCreate;
-            }
-
-            set
-            {
-                characterCreate = value;
-            }
-        }
-
-        internal IContent Content
-        {
-            get
-            {
-                return content;
-            }
-
-            set
-            {
-                content = value;
-            }
-        }
-        #endregion
-        #region Initialize Content
-        private void Awake()
-        {
-            Home = new HomeContent(this);
-            CharterSelect = new CharaterSelectContent(this);
-            BaseEquipment = new BaseEquipMentContent(this);
-            CharacterCreate = new CharacterCreateContent(this);
-            Content = Home;
-            Content.InputHome();
-        }
-        #endregion
-        #region Content State , Content Change
-        public void InputHome()
-        {
-            Content.InputHome();
-        }
-        public void InputCharacterSelect()
-        {
-            Content.InputCharacterSelect();
-        }
-        public void InputBaseEquipment()
-        {
-            Content.InputBaseEquipment();
-        }
-        public void InputCharacterCreate()
-        {
-            Content.InputCharacterCreate();
-        }
-        public void SetContent(IContent content)
-        {
-            this.Content = content;
-        }
-        #endregion
     }
+
+    public IContent NameSetting
+    {
+        get
+        {
+            return nameSetting;
+        }
+
+        set
+        {
+            nameSetting = value;
+        }
+    }
+
+    public IContent Content
+    {
+        get
+        {
+            return content;
+        }
+
+        set
+        {
+            content = value;
+        }
+    }
+
+
+    #endregion
+    #region Initialize Content
+    private void Awake()
+    {
+        classSelect = new ClassSelectContent(this,classSelectObject);
+        nameSetting = new NameSettingContent(this,nameSettingContentObject);
+        BaseEquipment = new BaseEquipMentContent(this,baseEquipmentContentObject);
+        //시작 콘텐츠
+        Content = ClassSelect;
+        Content.InputClassSelectContent();
+    }
+    #endregion
+    #region Content State , Content Change
+
+    public void InputClassSelectContent()
+    {
+        Content.InputClassSelectContent();
+    }
+
+    public void InputBaseEquipment()
+    {
+        Content.InputBaseEquipment();
+    }
+
+    public void InputNameSet()
+    {
+        Content.InputNameSetting();
+    }
+
+    public void SetContent(IContent content)
+    {
+        this.Content = content;
+    }
+    #endregion
 }

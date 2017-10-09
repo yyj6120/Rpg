@@ -121,9 +121,10 @@ namespace Rpg.Character
 
         #region Direction Variables
         [HideInInspector]
-        public Vector3 targetDirection;
-        [HideInInspector]
         public Vector3 attackDirection;
+
+        [HideInInspector]
+        public Vector3 targetDirection;
         protected Quaternion targetRotation;
         [HideInInspector]
         public float strafeInput;
@@ -194,9 +195,12 @@ namespace Rpg.Character
             CheckHealth();
             CheckGround();
             CheckAttackDirection();
+
             ControlCapsuleHeight();
             ControlJumpBehaviour();
             ControlLocomotion();
+
+
         }
 
         void ControlLocomotion()
@@ -590,11 +594,6 @@ namespace Rpg.Character
                 stopMove = false;
         }
 
-        //public virtual void UpdateTargetDirection(Transform referenceTransform = null)
-        //{
-        //    targetDirection = keepDirection ? targetDirection : new Vector3(input.x, 0, input.y);
-        //}
-
         #region Camera Methods
 
         public virtual void RotateToTarget(Transform target)
@@ -629,7 +628,9 @@ namespace Rpg.Character
                 targetDirection = input.x * right + input.y * forward;
             }
             else
+            {
                 targetDirection = keepDirection ? targetDirection : new Vector3(input.x, 0, input.y);
+            }
         }
 
         #endregion

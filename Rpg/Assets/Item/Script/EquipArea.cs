@@ -128,7 +128,8 @@ namespace Rpg.Item
             {
                 currentSelectedSlot.item.isInEquipArea = false;
                 var item = currentSelectedSlot.item;
-                if (item == slot.item) lastEquipedItem = item;
+                if (item == slot.item)
+                    lastEquipedItem = item;
                 currentSelectedSlot.RemoveItem();
                 onUnequipItem.Invoke(this, item);
             }
@@ -139,12 +140,12 @@ namespace Rpg.Item
                 onEquipItem.Invoke(this, currentSelectedSlot.item);
             }
             itemPicker.gameObject.SetActive(false);
-
         }
 
         public void NextEquipSlot()
         {
-            if (equipSlots == null || equipSlots.Count == 0) return;
+            if (equipSlots == null || equipSlots.Count == 0)
+                return;
             lastEquipedItem = currentEquipedItem;
             var validEquipSlots = ValidSlots;
             if (indexOfEquipedItem + 1 < validEquipSlots.Count)

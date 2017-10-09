@@ -1,40 +1,30 @@
 ﻿using UnityEngine;
-namespace Assets._3.Script.UI_Control.ContentControl
+public class BaseEquipMentContent : IContent
 {
-    class BaseEquipMentContent : IContent
+    ContentControl contentControl;
+    GameObject baseEquipment;
+    public BaseEquipMentContent(ContentControl contentControl , GameObject baseEquipment)
     {
-        ContentControl contentControl;
-        GameObject baseEquipment;
-        public BaseEquipMentContent(ContentControl contentControl)
-        {
-            this.contentControl = contentControl;
-            baseEquipment = GameObject.Find("contentTab/content/baseEquipment").gameObject;
-            baseEquipment.SetActive(false);
-        }
-        public void InputHome()
-        {
-            baseEquipment.SetActive(false);
-            contentControl.SetContent(contentControl.Home);
-            contentControl.Content.InputHome();
-        }
+        this.contentControl = contentControl;
+        this.baseEquipment = baseEquipment;
+        this.baseEquipment.SetActive(false);
+    }
+    public void InputClassSelectContent()
+    {
+        baseEquipment.SetActive(false);
+        contentControl.SetContent(contentControl.ClassSelect);
+        contentControl.Content.InputClassSelectContent();
+    }
 
-        public void InputCharacterSelect()
-        {
-            baseEquipment.SetActive(false);
-            contentControl.SetContent(contentControl.CharterSelect);
-            contentControl.Content.InputCharacterSelect();
-        }
+    public void InputBaseEquipment()
+    {
+        baseEquipment.SetActive(true);
+    }
 
-        public void InputBaseEquipment()
-        {
-            baseEquipment.SetActive(true);
-        }
-
-        public void InputCharacterCreate()
-        {
-            baseEquipment.SetActive(false);
-            contentControl.SetContent(contentControl.CharacterCreate);
-            contentControl.Content.InputCharacterCreate();
-        }
+    public void InputNameSetting()
+    {
+        baseEquipment.SetActive(false);
+        contentControl.SetContent(contentControl.NameSetting);
+        contentControl.Content.InputNameSetting();
     }
 }

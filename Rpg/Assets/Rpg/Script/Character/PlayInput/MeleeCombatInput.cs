@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 using System;
 
@@ -9,8 +10,7 @@ namespace Rpg.Character
         [System.Serializable]
         public new class OnUpdateEvent : UnityEngine.Events.UnityEvent<MeleeCombatInput> { }
 
-        #region Variables                
-
+        #region Variables
         protected MeleeManager meleeManager;
         protected bool isAttacking;
         protected bool isBlocking;
@@ -58,6 +58,8 @@ namespace Rpg.Character
 
         protected override void LateUpdate()
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
             base.LateUpdate();
             onUpdateInput.Invoke(this);
         }

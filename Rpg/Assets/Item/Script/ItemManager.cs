@@ -17,6 +17,7 @@ namespace Rpg.Item
         public GenericInput actionInput = new GenericInput("E", "A", "A");
         public GenericInput actionInput1 = new GenericInput("Fire1");
         public Inventory inventoryPrefab;
+
         [HideInInspector]
         public Inventory inventory;
         public ItemListData itemListData;
@@ -140,7 +141,8 @@ namespace Rpg.Item
                             AutoEquipItem(_item, itemReference.indexArea, immediate);
                         }
 
-                        if (itemReference.amount > 0) AddItem(itemReference);
+                        if (itemReference.amount > 0)
+                            AddItem(itemReference);
                     }
                     else
                     {
@@ -151,7 +153,8 @@ namespace Rpg.Item
                             items[indexOffItem].amount++;
                             itemReference.amount--;
                         }
-                        if (itemReference.amount > 0) AddItem(itemReference);
+                        if (itemReference.amount > 0)
+                            AddItem(itemReference);
                     }
                 }
             }

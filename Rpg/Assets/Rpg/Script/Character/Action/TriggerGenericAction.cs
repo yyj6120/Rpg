@@ -40,7 +40,11 @@ namespace Rpg.Character
         [Tooltip("Delay to run the OnDoAction Event")]
         public float onDoActionDelay;
 
+
+
         public UnityEvent OnDoAction;
+        public UnityEvent OffDoAction;
+
         public UnityEvent OnPlayerEnter;
         public UnityEvent OnPlayerStay;
         public UnityEvent OnPlayerExit;

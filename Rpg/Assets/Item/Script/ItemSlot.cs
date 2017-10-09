@@ -53,7 +53,8 @@ namespace Rpg.Item
             Selectable sectable = GetComponent<Selectable>();
             if (sectable)
                 sectable.interactable = value;
-            if (blockIcon == null) return;
+            if (blockIcon == null)
+                return;
             blockIcon.color = value ? Color.clear : Color.white;
             blockIcon.SetAllDirty();
             isValid = value;
@@ -69,14 +70,17 @@ namespace Rpg.Item
                 color.a = 1;
                 icon.color = color;
                 if (item.stackable)
+                {
                     amountText.text = item.amount.ToString();
+                }
                 else
+                {
                     amountText.text = "";
-
+                }
             }
-            else RemoveItem();
-            //if(icon)
-            //    icon.SetAllDirty();
+            else
+                RemoveItem();
+
         }
 
         public virtual void RemoveItem()

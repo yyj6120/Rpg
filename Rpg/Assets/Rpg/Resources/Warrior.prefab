@@ -908,14 +908,14 @@ GameObject:
   - component: {fileID: 4188127651273888}
   - component: {fileID: 95168961710024006}
   - component: {fileID: 136836584511722998}
-  - component: {fileID: 114235598901510422}
+  - component: {fileID: 54580751531876642}
   - component: {fileID: 114006405978654354}
   - component: {fileID: 114870068990115820}
   - component: {fileID: 114135313884429598}
-  - component: {fileID: 54580751531876642}
   - component: {fileID: 114570956825106394}
   - component: {fileID: 114278190162055524}
   - component: {fileID: 114095343352610110}
+  - component: {fileID: 114298343139145850}
   m_Layer: 10
   m_Name: Warrior
   m_TagString: Player
@@ -1437,8 +1437,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1770145730114654}
-  m_LocalRotation: {x: -0, y: 0.72694486, z: -0, w: -0.6866958}
-  m_LocalPosition: {x: 24.89, y: 0, z: -0.07}
+  m_LocalRotation: {x: 0, y: -0.5, z: 0, w: 0.8660254}
+  m_LocalPosition: {x: 25, y: 0, z: 25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4477281062365374}
@@ -1452,7 +1452,7 @@ Transform:
   - {fileID: 4693811223482172}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 266.738, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -60, z: 0}
 --- !u!4 &4215349404847236
 Transform:
   m_ObjectHideFlags: 1
@@ -2724,54 +2724,6 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   applyAttributeEvents: []
   inEquip: 0
---- !u!114 &114235598901510422
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1770145730114654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30979ed4e1dc8c247841c4ce598cdb2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Members: []
-  defaultDamage:
-    damageValue: 10
-    staminaBlockCost: 5
-    staminaRecoveryDelay: 1
-    ignoreDefense: 0
-    activeRagdoll: 0
-    sender: {fileID: 0}
-    receiver: {fileID: 0}
-    hitPosition: {x: 0, y: 0, z: 0}
-    recoil_id: 0
-    reaction_id: 0
-    attackName: 
-  hitProperties:
-    hitDamageTags:
-    - Enemy
-    useRecoil: 1
-    drawRecoilGizmos: 0
-    recoilRange: 90
-    hitRecoilLayer:
-      serializedVersion: 2
-      m_Bits: 1
-  leftWeapon: {fileID: 0}
-  rightWeapon: {fileID: 0}
-  onDamageHit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: vOnHitEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  onRecoilHit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: vOnHitEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  defaultAttackDistance: 1
-  defaultStaminaCost: 20
-  defaultStaminaRecoveryDelay: 1
-  defaultDefenseRate: 50
-  defaultDefenseRange: 90
 --- !u!114 &114278190162055524
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2784,19 +2736,73 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameplayInputStyle: 0
+  changeCameraState: 0
+  customCameraState: 
+  customlookAtPoint: 
+  smoothCameraState: 0
+  lockCamera: 0
+  keepDirection: 0
   clickMoveLayer:
     serializedVersion: 2
     m_Bits: 1
   lockInput: 0
   cursorPoint: {x: 0, y: 0, z: 0}
   character: {fileID: 0}
-  lockInputByItemManager: 0
   onUpdateInput:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Rpg.Character.ThirdPersonInput+OnUpdateEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  AttackPoint: {x: 0, y: 0, z: 0}
+  lockInputByItemManager: 0
   strafeWhileLockOn: 1
+--- !u!114 &114298343139145850
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1770145730114654}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab93c54f5d822640accf043b98bf38c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minAngleX: -90
+  maxAngleX: 90
+  minAngleY: -90
+  maxAngleY: 90
+  head: {fileID: 0}
+  strafeHeadWeight: 0.8
+  strafeBodyWeight: 0.8
+  freeHeadWeight: 1
+  freeBodyWeight: 0.4
+  distanceToDetect: 10
+  smooth: 12
+  updateTargetInteration: 1
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  tagsToDetect:
+  - LookAt
+  animatorTags:
+  - Attack
+  - LockMovement
+  - CustomAction
+  followCamera: 1
+  useLimitAngle: 1
+  useUnityAnimatorIK: 0
+  offsetSpine: {x: 0, y: 0}
+  updateIK: 0
+  onInitUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onFinishUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &114474575543823474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2819,12 +2825,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2152da5dfa7c24ab607b3275b34578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 1000
+  currentHealthRecoveryDelay: 0
+  healthRecovery: 0
+  healthRecoveryDelay: 0
   currentHealth: 0
   animator: {fileID: 0}
   onDead:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Rpg.Character.OnDead, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  isDead: 0
+  onActiveRagdoll:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Rpg.Character.OnActiveRagdoll, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onReceiveDamage:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Rpg.Character.OnReceiveDamage, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onActionEnter:
     m_PersistentCalls:
@@ -2841,8 +2862,15 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Rpg.Character.OnActionHandle, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  deathBy: 0
+  OnDead:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   locomotionType: 0
   customAction: 0
+  AttackAction: 0
   frictionPhysics: {fileID: 0}
   maxFrictionPhysics: {fileID: 0}
   slippyPhysics: {fileID: 0}
@@ -2867,12 +2895,11 @@ MonoBehaviour:
   autoCrouch: 0
   isJumping: 0
   landHigh: 0
-  isDead: 0
   useRootMotion: 0
   freeWalkByDefault: 0
   strafeWalkByDefault: 1
   freeWalkSpeed: 1
-  freeRunningSpeed: 2.5
+  freeRunningSpeed: 3
   freeSprintSpeed: 3
   freeCrouchSpeed: 1
   strafeWalkSpeed: 3
@@ -2880,6 +2907,7 @@ MonoBehaviour:
   strafeSprintSpeed: 3
   strafeCrouchSpeed: 3
   freeRotationSpeed: 10
+  meleeAttackRotationSpeed: 50
   slopeLimit: 45
   extraGravity: -10
   capsuleCollider: {fileID: 0}
@@ -2900,10 +2928,13 @@ MonoBehaviour:
   jumpAirControl: 1
   jumpForward: 3
   targetDirection: {x: 0, y: 0, z: 0}
+  attackDirection: {x: 0, y: 0, z: 0}
   strafeInput: 0
   freeRotation: {x: 0, y: 0, z: 0, w: 0}
   keepDirection: 0
   oldInput: {x: 0, y: 0}
+  strafeRotationSpeed: 10
+  rotateByWorld: 0
   stopMoveHeight: 0.65
 --- !u!114 &114870068990115820
 MonoBehaviour:
@@ -2921,6 +2952,28 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  stepMarkPool:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: TriggerStepMarkPaticle
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Rpg.Character.FootStepFromTexture+StepMarkPool, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  stepSmokePaticle: {fileID: 135586, guid: 67c428c734a00f044a055bb9bc87b989, type: 2}
+  stepMarkPaticle: {fileID: 1001956787763468, guid: 9f13efc8b9698c345989f94079f39e4b,
+    type: 2}
+  stepLayer:
+    serializedVersion: 2
+    m_Bits: 1
   animationType: 0
   debugTextureName: 0
   leftFootTrigger: {fileID: 114474575543823474}

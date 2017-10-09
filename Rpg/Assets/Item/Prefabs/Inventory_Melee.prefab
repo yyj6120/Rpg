@@ -532,7 +532,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224000011653900848}
-  - component: {fileID: 114000012784219402}
   m_Layer: 5
   m_Name: InputInfoGroup (1)
   m_TagString: Untagged
@@ -963,7 +962,6 @@ GameObject:
   - component: {fileID: 222000010129845712}
   - component: {fileID: 114000010345362302}
   - component: {fileID: 114000010579646498}
-  - component: {fileID: 114000012776869970}
   m_Layer: 5
   m_Name: ItemWindow
   m_TagString: Untagged
@@ -2915,7 +2913,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224000012584644484}
   m_Layer: 5
-  m_Name: InventoryWindow
+  m_Name: Window(Inventory)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4399,7 +4397,7 @@ GameObject:
   - component: {fileID: 222418025351865726}
   - component: {fileID: 114338783077517044}
   m_Layer: 5
-  m_Name: EquipmentDisplayWindow1
+  m_Name: Window(EquipmentDisplay)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9087,17 +9085,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114000012776869970
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011100638266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 375c6028e58bf9745af561d0b34e24c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000012777006970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9125,76 +9112,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114000012784219402
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010461964302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60254cc56f3d5d04896861196a404996, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnChangeToKeyboard:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1000011981181018}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1000010888472634}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  OnChangeToMobile:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  OnChangeToJoystick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1000010888472634}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1000011981181018}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
 --- !u!114 &114000012789754906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11986,6 +11903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 344a3669afd96e647b85ae760ca5c06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stackBox: {fileID: 0}
   icon: {fileID: 114316335615839868}
   blockIcon: {fileID: 114626786632159896}
   checkIcon: {fileID: 0}
@@ -12056,6 +11974,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd436796e1b2f084cbc9f4979855cec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stackBox: {fileID: 0}
   icon: {fileID: 114115966365738550}
   blockIcon: {fileID: 0}
   checkIcon: {fileID: 114687506388669586}
@@ -12126,6 +12045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 344a3669afd96e647b85ae760ca5c06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stackBox: {fileID: 0}
   icon: {fileID: 114471003013608964}
   blockIcon: {fileID: 114207832109423150}
   checkIcon: {fileID: 0}
@@ -12278,6 +12198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd436796e1b2f084cbc9f4979855cec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stackBox: {fileID: 0}
   icon: {fileID: 114505714953550846}
   blockIcon: {fileID: 0}
   checkIcon: {fileID: 114397240109185310}
@@ -12613,6 +12534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 344a3669afd96e647b85ae760ca5c06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stackBox: {fileID: 0}
   icon: {fileID: 114497400402523962}
   blockIcon: {fileID: 114906986676811442}
   checkIcon: {fileID: 0}
@@ -13229,6 +13151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 344a3669afd96e647b85ae760ca5c06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stackBox: {fileID: 0}
   icon: {fileID: 114797267757287532}
   blockIcon: {fileID: 114434550742183638}
   checkIcon: {fileID: 0}
@@ -13258,6 +13181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 344a3669afd96e647b85ae760ca5c06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stackBox: {fileID: 0}
   icon: {fileID: 114740430836374082}
   blockIcon: {fileID: 114738552256954400}
   checkIcon: {fileID: 0}
@@ -13777,6 +13701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 344a3669afd96e647b85ae760ca5c06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stackBox: {fileID: 0}
   icon: {fileID: 114996052923553390}
   blockIcon: {fileID: 114749958702184400}
   checkIcon: {fileID: 0}
@@ -15708,6 +15633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd436796e1b2f084cbc9f4979855cec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stackBox: {fileID: 0}
   icon: {fileID: 114000011195357824}
   blockIcon: {fileID: 0}
   checkIcon: {fileID: 114000010406798572}
@@ -15808,6 +15734,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 344a3669afd96e647b85ae760ca5c06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stackBox: {fileID: 0}
   icon: {fileID: 114261886930184850}
   blockIcon: {fileID: 114516266506533890}
   checkIcon: {fileID: 0}
@@ -16115,6 +16042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 344a3669afd96e647b85ae760ca5c06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stackBox: {fileID: 0}
   icon: {fileID: 114000014087236884}
   blockIcon: {fileID: 114000010009051928}
   checkIcon: {fileID: 0}
@@ -16239,6 +16167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 344a3669afd96e647b85ae760ca5c06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stackBox: {fileID: 0}
   icon: {fileID: 114000010462024708}
   blockIcon: {fileID: 114000012819435194}
   checkIcon: {fileID: 0}
@@ -16268,6 +16197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 344a3669afd96e647b85ae760ca5c06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stackBox: {fileID: 0}
   icon: {fileID: 114000010124652764}
   blockIcon: {fileID: 114000012861272538}
   checkIcon: {fileID: 0}
@@ -16441,6 +16371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 344a3669afd96e647b85ae760ca5c06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stackBox: {fileID: 0}
   icon: {fileID: 114664726509629074}
   blockIcon: {fileID: 114004740288439510}
   checkIcon: {fileID: 0}
@@ -17131,6 +17062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd436796e1b2f084cbc9f4979855cec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stackBox: {fileID: 0}
   icon: {fileID: 114602714967611372}
   blockIcon: {fileID: 0}
   checkIcon: {fileID: 114545609700999756}
@@ -19601,7 +19533,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -196, y: 0}
+  m_AnchoredPosition: {x: 561, y: 140}
   m_SizeDelta: {x: 584.8, y: 589.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000011027139362
@@ -23974,7 +23906,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.000036912857, y: 0}
+  m_AnchoredPosition: {x: 0.000030517578, y: 0}
   m_SizeDelta: {x: 85.42, y: 82.03}
   m_Pivot: {x: 0.00000043213367, y: 1}
 --- !u!224 &224815624333880266
