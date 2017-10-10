@@ -134,7 +134,7 @@ public class HUDController : MonoBehaviour
         //    healthSlider.fillAmount = Mathf.Lerp(healthSlider.fillAmount, cc.maxHealth, 2f * Time.fixedDeltaTime);
         //    healthSlider.onValueChanged.Invoke(healthSlider.value);
         //}
-        healthSlider.fillAmount = Mathf.Lerp(healthSlider.fillAmount , cc.currentHealth, 2f * Time.fixedDeltaTime);
+        healthSlider.fillAmount = Mathf.Lerp(healthSlider.fillAmount , cc.percentage , 2f * Time.fixedDeltaTime);
         //if (cc.maxStamina != staminaSlider.maxValue)
         //{
         //    staminaSlider.maxValue = Mathf.Lerp(staminaSlider.maxValue, cc.maxStamina, 2f * Time.fixedDeltaTime);

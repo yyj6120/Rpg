@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -4015,7 +4015,7 @@ Prefab:
         type: 2}
       propertyPath: CameraStateList
       value: 
-      objectReference: {fileID: 11400000, guid: 77e476d6f5332c14fbf0525e160c60e6,
+      objectReference: {fileID: 11400000, guid: 026ed2280610ee74194cd3af679c75a3,
         type: 2}
     - target: {fileID: 114810431904610134, guid: ad24f07bad0952f4297494bdf199c5cd,
         type: 2}
@@ -4340,8 +4340,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 205585599}
   m_LocalRotation: {x: 0.24258487, y: -0.07449502, z: 0.64281416, w: 0.72276765}
-  m_LocalPosition: {x: -2.0372322, y: -0.05075323, z: -0.24147373}
-  m_LocalScale: {x: 1.9091702, y: -1.9338381, z: 2.0395722}
+  m_LocalPosition: {x: -2.0385, y: -0.051156, z: -0.24137}
+  m_LocalScale: {x: 4.053537, y: -3.098565, z: 3.8465726}
   m_Children: []
   m_Father: {fileID: 1922330418}
   m_RootOrder: 1
@@ -5523,7 +5523,7 @@ Transform:
   m_GameObject: {fileID: 253880743}
   m_LocalRotation: {x: -0.56723934, y: 0.4220404, z: 0.42171213, w: 0.5676974}
   m_LocalPosition: {x: -1.9986361, y: 0.07920703, z: 0.28529617}
-  m_LocalScale: {x: 1.9091694, y: -1.9338316, z: 2.0395653}
+  m_LocalScale: {x: 4.053537, y: -3.098565, z: 3.846573}
   m_Children: []
   m_Father: {fileID: 1042855748}
   m_RootOrder: 1
@@ -12549,7 +12549,7 @@ MonoBehaviour:
   attackObject: {fileID: 0}
   trigger: {fileID: 600298716}
   damagePercentage: 100
-  triggerType: 3
+  triggerType: -1
 --- !u!65 &600298716
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14775,7 +14775,7 @@ MonoBehaviour:
   attackObject: {fileID: 0}
   trigger: {fileID: 717849133}
   damagePercentage: 100
-  triggerType: 3
+  triggerType: -1
 --- !u!65 &717849133
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14974,6 +14974,74 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 722312127}
+--- !u!1 &727329970
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 727329971}
+  - component: {fileID: 727329973}
+  - component: {fileID: 727329972}
+  m_Layer: 5
+  m_Name: damage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &727329971
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 727329970}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1420141782}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &727329972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 727329970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
+  m_RaycastTarget: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 80019dc8ba1e6a044a33199e829adc42, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &727329973
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 727329970}
 --- !u!1 &728577088
 GameObject:
   m_ObjectHideFlags: 0
@@ -16706,7 +16774,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 810291464}
-  - component: {fileID: 810291465}
   m_Layer: 11
   m_Name: Ent_4 L Calf
   m_TagString: Untagged
@@ -16728,51 +16795,6 @@ Transform:
   m_Father: {fileID: 644724413}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &810291465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 810291463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2b25f44ab26fdb48ad3601fbdf5897f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage:
-    damageValue: 0
-    staminaBlockCost: 0
-    staminaRecoveryDelay: 0
-    ignoreDefense: 0
-    activeRagdoll: 0
-    sender: {fileID: 0}
-    receiver: {fileID: 0}
-    hitPosition: {x: 0, y: 0, z: 0}
-    recoil_id: 0
-    reaction_id: 0
-    attackName: 
-  hitBoxes: []
-  damageModifier: 0
-  canApplyDamage: 0
-  onDamageHit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: OnHitEnter, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  onRecoilHit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: OnHitEnter, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  onEnableDamage:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  onDisableDamage:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  meleeManager: {fileID: 0}
 --- !u!1 &810606296
 GameObject:
   m_ObjectHideFlags: 0
@@ -17747,7 +17769,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!136 &857752590
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -17822,6 +17844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ed68e2fa3a670145a76a285dc78d116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  percentage: 0
   maxHealth: 100
   currentHealthRecoveryDelay: 0
   healthRecovery: 0
@@ -18029,16 +18052,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openCloseEvents: 0
-  openCloseWindow: 0
+  openCloseWindow: 1
   Members:
-  - transform: {fileID: 0}
-    bodyPart: 
-    attackObject: {fileID: 0}
-    isHuman: 0
-  - transform: {fileID: 0}
-    bodyPart: 
-    attackObject: {fileID: 1922330420}
-    isHuman: 0
   - transform: {fileID: 1042855748}
     bodyPart: LeftLowerArm
     attackObject: {fileID: 1042855749}
@@ -18046,14 +18061,6 @@ MonoBehaviour:
   - transform: {fileID: 1922330418}
     bodyPart: RightLowerArm
     attackObject: {fileID: 1922330420}
-    isHuman: 1
-  - transform: {fileID: 810291464}
-    bodyPart: LeftLowerLeg
-    attackObject: {fileID: 810291465}
-    isHuman: 1
-  - transform: {fileID: 1811471340}
-    bodyPart: RightLowerLeg
-    attackObject: {fileID: 1811471341}
     isHuman: 1
   defaultDamage:
     damageValue: 10
@@ -19271,6 +19278,26 @@ Prefab:
         type: 2}
       propertyPath: openCloseWindow
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114298343139145850, guid: aa80ed489f86c6948aeac87c26fef681,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114278190162055524, guid: aa80ed489f86c6948aeac87c26fef681,
+        type: 2}
+      propertyPath: gameplayInputStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114570956825106394, guid: aa80ed489f86c6948aeac87c26fef681,
+        type: 2}
+      propertyPath: percentage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114570956825106394, guid: aa80ed489f86c6948aeac87c26fef681,
+        type: 2}
+      propertyPath: useRootMotion
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aa80ed489f86c6948aeac87c26fef681, type: 2}
@@ -21811,7 +21838,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage:
-    damageValue: 0
+    damageValue: 100
     staminaBlockCost: 0
     staminaRecoveryDelay: 0
     ignoreDefense: 0
@@ -28030,6 +28057,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1819777857}
+  - {fileID: 727329971}
   m_Father: {fileID: 923136160}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -28050,9 +28078,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthSlider: {fileID: 1910800099}
-  damageImage: {fileID: 0}
+  damageImage: {fileID: 727329972}
   flashSpeed: 5
-  flashColour: {r: 1, g: 0, b: 0, a: 0.1}
+  flashColour: {r: 1, g: 0, b: 0, a: 0.8627451}
   damaged: 0
   controllerInput: 0
   displayControls: {fileID: 0}
@@ -31286,7 +31314,7 @@ MonoBehaviour:
   attackObject: {fileID: 0}
   trigger: {fileID: 1543740171}
   damagePercentage: 100
-  triggerType: 3
+  triggerType: -1
 --- !u!65 &1543740171
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -33863,7 +33891,7 @@ MonoBehaviour:
   attackObject: {fileID: 0}
   trigger: {fileID: 1702452987}
   damagePercentage: 100
-  triggerType: 3
+  triggerType: -1
 --- !u!65 &1702452987
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -34872,7 +34900,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1811471340}
-  - component: {fileID: 1811471341}
   m_Layer: 11
   m_Name: Ent_4 R Calf
   m_TagString: Untagged
@@ -34894,51 +34921,6 @@ Transform:
   m_Father: {fileID: 229023466}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1811471341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1811471339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2b25f44ab26fdb48ad3601fbdf5897f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage:
-    damageValue: 0
-    staminaBlockCost: 0
-    staminaRecoveryDelay: 0
-    ignoreDefense: 0
-    activeRagdoll: 0
-    sender: {fileID: 0}
-    receiver: {fileID: 0}
-    hitPosition: {x: 0, y: 0, z: 0}
-    recoil_id: 0
-    reaction_id: 0
-    attackName: 
-  hitBoxes: []
-  damageModifier: 0
-  canApplyDamage: 0
-  onDamageHit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: OnHitEnter, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  onRecoilHit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: OnHitEnter, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  onEnableDamage:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  onDisableDamage:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  meleeManager: {fileID: 0}
 --- !u!1 &1819235348
 GameObject:
   m_ObjectHideFlags: 0
@@ -37252,7 +37234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage:
-    damageValue: 10
+    damageValue: 100
     staminaBlockCost: 0
     staminaRecoveryDelay: 0
     ignoreDefense: 0

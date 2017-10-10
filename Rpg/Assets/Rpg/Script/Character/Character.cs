@@ -22,6 +22,8 @@ namespace Rpg.Character
 
     public abstract class Character : MonoBehaviour , IDamageReceiver
     {
+        [HideInInspector]
+        public float percentage = 1f;
         public float maxHealth = 1000f;
         [HideInInspector]
         protected float health = 1000.0f;
@@ -96,6 +98,8 @@ namespace Rpg.Character
             if (damage != null)
             {
                 currentHealth -= damage.damageValue;
+                percentage  = (currentHealth / maxHealth);
+                Debug.Log(percentage);
                 //if (damage.activeRagdoll)
                 //{
                 //    EnableRagdoll();

@@ -585,6 +585,7 @@ public class v_AIMotor : Character
             }
         }
 
+        
         onReceiveDamage.Invoke(damage);
         if (damage.activeRagdoll)
             onActiveRagdoll.Invoke();

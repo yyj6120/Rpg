@@ -200,9 +200,9 @@ public class HeadTrack : MonoBehaviour
             {
                 if (TargetIsOnRange(dir))
                 {
-                    if (animator.GetBool("IsStrafing"))
-                        SmoothValues(strafeHeadWeight, strafeBodyWeight, angle.x, angle.y);
-                    else
+                    //if (animator.GetBool("IsStrafing"))
+                    //    SmoothValues(strafeHeadWeight, strafeBodyWeight, angle.x, angle.y);
+                    //else
                         SmoothValues(freeHeadWeight, freeBodyWeight, angle.x, angle.y);
                 }
                 else
@@ -210,9 +210,9 @@ public class HeadTrack : MonoBehaviour
             }
             else
             {
-                if (animator.GetBool("IsStrafing"))
-                    SmoothValues(strafeHeadWeight, strafeBodyWeight, angle.x, angle.y);
-                else
+                //if (animator.GetBool("IsStrafing"))
+                //    SmoothValues(strafeHeadWeight, strafeBodyWeight, angle.x, angle.y);
+                //else
                     SmoothValues(freeHeadWeight, freeBodyWeight, angle.x, angle.y);
             }
             if (targetsInArea.Count > 1)
