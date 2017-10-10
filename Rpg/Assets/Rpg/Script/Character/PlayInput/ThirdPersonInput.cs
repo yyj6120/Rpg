@@ -63,6 +63,9 @@ namespace Rpg.Character
         [HideInInspector]
         public OnUpdateEvent onUpdateInput = new OnUpdateEvent();
 
+        [HideInInspector]
+        public HUDController hud;
+
         protected virtual void Start()
         {
             character = GetComponent<ThirdPersonController>();
@@ -96,6 +99,7 @@ namespace Rpg.Character
         {
             character.UpdateMotor();
             character.UpdateAnimator();
+            UpdateHUD();
         }
 
         protected virtual void CharacterInit()
@@ -110,6 +114,10 @@ namespace Rpg.Character
                 tpCamera.SetMainTarget(this.transform);
 
             cursorPoint = transform.position;
+
+            hud = HUDController.instance;
+            if (hud != null)
+                hud.Init(character);
         }
 
         #region Camera Methods
@@ -264,6 +272,18 @@ namespace Rpg.Character
                 character.Jump();
             }
         }
+
+        #region HUD       
+
+        public virtual void UpdateHUD()
+        {
+            if (hud == null)
+                return;
+
+            hud.UpdateHUD(character);
+        }
+
+        #endregion
 
         protected virtual void OnTriggerStay(Collider other)
         {

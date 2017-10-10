@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 
-public class MeleeManager : MonoBehaviour
+public class MeleeManager : vMonoBehaviour
 {
     #region SeralizedProperties in CustomEditor
     public List<vBodyMember> Members = new List<vBodyMember>();
